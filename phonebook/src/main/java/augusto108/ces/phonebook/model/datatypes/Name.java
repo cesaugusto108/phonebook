@@ -27,25 +27,6 @@ public class Name {
     @Column(name = "phonetic_last_name", length = 50)
     private String phoneticLastName;
 
-    public Name() {
-    }
-
-    public Name(String firstName,
-                String middleName,
-                String lastName,
-                String nickname,
-                String phoneticFirstName,
-                String phoneticMiddleName,
-                String phoneticLastName) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.nickname = nickname;
-        this.phoneticFirstName = phoneticFirstName;
-        this.phoneticMiddleName = phoneticMiddleName;
-        this.phoneticLastName = phoneticLastName;
-    }
-
     public String getFirstName() {
         return firstName;
     }

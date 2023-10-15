@@ -9,13 +9,6 @@ public class Country {
     @Column(name = "country_name", length = 40)
     private String name;
 
-    public Country() {
-    }
-
-    public Country(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }

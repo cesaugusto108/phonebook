@@ -1,5 +1,6 @@
 package augusto108.ces.phonebook.model.entities;
 
+import augusto108.ces.phonebook.model.base.BaseUUID;
 import augusto108.ces.phonebook.model.datatypes.Date;
 import augusto108.ces.phonebook.model.datatypes.Name;
 import augusto108.ces.phonebook.model.datatypes.Note;
@@ -8,16 +9,10 @@ import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "contact")
-public class Contact {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false, unique = true)
-    private UUID id;
+public class Contact extends BaseUUID {
 
     @Embedded
     private Name name;
@@ -72,35 +67,6 @@ public class Contact {
             inverseJoinColumns = @JoinColumn(name = "im_id")
     )
     private final Set<InstantMessenger> messengers = new HashSet<>();
-
-    public Contact() {
-    }
-
-    public Contact(UUID id,
-                   Name name,
-                   Relationship relationship,
-                   String company,
-                   String title,
-                   String website,
-                   Date date,
-                   Note note) {
-        this.id = id;
-        this.name = name;
-        this.relationship = relationship;
-        this.company = company;
-        this.title = title;
-        this.website = website;
-        this.date = date;
-        this.note = note;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public Name getName() {
         return name;

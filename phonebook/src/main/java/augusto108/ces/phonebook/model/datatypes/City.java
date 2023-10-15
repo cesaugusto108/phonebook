@@ -16,15 +16,6 @@ public class City {
     @Embedded
     private Country country;
 
-    public City() {
-    }
-
-    public City(String name, String state, Country country) {
-        this.name = name;
-        this.state = state;
-        this.country = country;
-    }
-
     public String getName() {
         return name;
     }
@@ -39,5 +30,13 @@ public class City {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 }

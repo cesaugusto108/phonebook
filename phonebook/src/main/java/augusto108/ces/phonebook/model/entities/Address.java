@@ -1,5 +1,6 @@
 package augusto108.ces.phonebook.model.entities;
 
+import augusto108.ces.phonebook.model.base.BaseId;
 import augusto108.ces.phonebook.model.datatypes.City;
 import augusto108.ces.phonebook.model.enums.AddressType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -8,12 +9,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "address")
 @JsonIgnoreProperties(value = {"id"})
-public class Address {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    private Integer id;
+public class Address extends BaseId {
 
     @Column(name = "street", nullable = false, length = 30)
     private String street;
@@ -37,35 +33,6 @@ public class Address {
     @Column(name = "address_type", length = 15)
     private AddressType addressType;
 
-    public Address() {
-    }
-
-    public Address(Integer id,
-                   String street,
-                   String number,
-                   String complement,
-                   String district,
-                   String postalCode,
-                   City city,
-                   AddressType addressType) {
-        this.id = id;
-        this.street = street;
-        this.number = number;
-        this.complement = complement;
-        this.district = district;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.addressType = addressType;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getStreet() {
         return street;
     }
@@ -80,6 +47,22 @@ public class Address {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getPostalCode() {

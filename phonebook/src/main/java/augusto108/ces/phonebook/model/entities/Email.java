@@ -1,5 +1,6 @@
 package augusto108.ces.phonebook.model.entities;
 
+import augusto108.ces.phonebook.model.base.BaseId;
 import augusto108.ces.phonebook.model.enums.EmailType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -7,12 +8,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "email")
 @JsonIgnoreProperties(value = {"id"})
-public class Email {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    private Integer id;
+public class Email extends BaseId {
 
     @Column(name = "email_username", nullable = false, length = 30)
     private String username;
@@ -23,24 +19,6 @@ public class Email {
     @Enumerated(EnumType.STRING)
     @Column(name = "email_type", length = 15)
     private EmailType emailType;
-
-    public Email() {
-    }
-
-    public Email(Integer id, String username, String domain, EmailType emailType) {
-        this.id = id;
-        this.username = username;
-        this.domain = domain;
-        this.emailType = emailType;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

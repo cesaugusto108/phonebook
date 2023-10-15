@@ -16,14 +16,6 @@ public class Date {
     @Column(name = "date_type", length = 15)
     private DateType dateType;
 
-    public Date() {
-    }
-
-    public Date(java.util.Date date, DateType dateType) {
-        this.date = date;
-        this.dateType = dateType;
-    }
-
     public java.util.Date getDate() {
         return date;
     }
