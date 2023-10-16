@@ -24,7 +24,7 @@ class ToContactDtoTest {
         contact = new Contact();
         final Name name = getName();
         final Date date = getDate();
-        final Note note = getNote();
+        final Note note = new Note("Lorem ipsum");
         final Telephone telephone = getTelephone();
         final Address address = getAddress();
         final Email email = getEmail();
@@ -42,12 +42,6 @@ class ToContactDtoTest {
         name.setPhoneticMiddleName("Mareeah");
         name.setPhoneticLastName("Sahntoss");
         return name;
-    }
-
-    private static Note getNote() {
-        final Note note = new Note();
-        note.setText("Lorem ipsum");
-        return note;
     }
 
     private static Date getDate() {

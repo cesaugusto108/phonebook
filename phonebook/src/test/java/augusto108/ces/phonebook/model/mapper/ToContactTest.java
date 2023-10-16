@@ -133,7 +133,7 @@ public class ToContactTest {
         assertEquals("www.fake.com", contact.getWebsite());
         assertEquals("1991-10-01", simpleDateFormat.format(contact.getDate().getDate()));
         assertEquals(DateType.OTHER, contact.getDate().getDateType());
-        assertEquals("Lorem ipsum", contact.getNote().getText());
+        assertEquals("Lorem ipsum", contact.getNote().note());
     }
 
     private static void testTelephones(Contact contact) {

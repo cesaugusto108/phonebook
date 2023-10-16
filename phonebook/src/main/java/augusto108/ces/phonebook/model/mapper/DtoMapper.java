@@ -29,7 +29,7 @@ public class DtoMapper {
         dto.setWebsite(contact.getWebsite());
         dto.setDate(date.getDate());
         dto.setDateType(date.getDateType());
-        dto.setNote(note.getText());
+        dto.setNote(note.note());
         setCollections(contact.getTelephones(), dto.getTelephones());
         setCollections(contact.getAddresses(), dto.getAddresses());
         setCollections(contact.getEmails(), dto.getEmails());
@@ -41,14 +41,13 @@ public class DtoMapper {
         final Contact contact = new Contact();
         final Name name = new Name();
         final Date date = new Date();
-        final Note note = new Note();
         setContactName(dto, name, contact);
         contact.setRelationship(dto.getRelationship());
         contact.setCompany(dto.getCompany());
         contact.setTitle(dto.getTitle());
         contact.setWebsite(dto.getWebsite());
         setContactDate(dto, date, contact);
-        setContactNote(dto, note, contact);
+        setContactNote(dto, contact);
         setCollections(dto.getTelephones(), contact.getTelephones());
         setCollections(dto.getAddresses(), contact.getAddresses());
         setCollections(dto.getEmails(), contact.getEmails());
@@ -77,8 +76,8 @@ public class DtoMapper {
         contact.setDate(date);
     }
 
-    private static void setContactNote(ContactDto dto, Note note, Contact contact) {
-        note.setText(dto.getNote());
+    private static void setContactNote(ContactDto dto, Contact contact) {
+        final Note note = new Note(dto.getNote());
         contact.setNote(note);
     }
 }
