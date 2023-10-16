@@ -1,10 +1,13 @@
 package augusto108.ces.phonebook.model.mapper;
 
+import augusto108.ces.phonebook.model.base.BaseId;
 import augusto108.ces.phonebook.model.datatypes.Date;
 import augusto108.ces.phonebook.model.datatypes.Name;
 import augusto108.ces.phonebook.model.datatypes.Note;
 import augusto108.ces.phonebook.model.dto.ContactDto;
 import augusto108.ces.phonebook.model.entities.Contact;
+
+import java.util.Set;
 
 public class DtoMapper {
 
@@ -27,7 +30,10 @@ public class DtoMapper {
         dto.setDate(date.getDate());
         dto.setDateType(date.getDateType());
         dto.setNote(note.getText());
-        setContactDtoCollections(contact, dto);
+        setCollections(contact.getTelephones(), dto.getTelephones());
+        setCollections(contact.getAddresses(), dto.getAddresses());
+        setCollections(contact.getEmails(), dto.getEmails());
+        setCollections(contact.getMessengers(), dto.getMessengers());
         return dto;
     }
 
@@ -43,15 +49,15 @@ public class DtoMapper {
         contact.setWebsite(dto.getWebsite());
         setContactDate(dto, date, contact);
         setContactNote(dto, note, contact);
-        setContactCollections(dto, contact);
+        setCollections(dto.getTelephones(), contact.getTelephones());
+        setCollections(dto.getAddresses(), contact.getAddresses());
+        setCollections(dto.getEmails(), contact.getEmails());
+        setCollections(dto.getMessengers(), contact.getMessengers());
         return contact;
     }
 
-    private static void setContactDtoCollections(Contact contact, ContactDto dto) {
-        contact.getTelephones().forEach(telephone -> dto.getTelephones().add(telephone));
-        contact.getAddresses().forEach(address -> dto.getAddresses().add(address));
-        contact.getEmails().forEach(email -> dto.getEmails().add(email));
-        contact.getMessengers().forEach(messenger -> dto.getMessengers().add(messenger));
+    private static <T extends BaseId> void setCollections(Set<T> collectionSource, Set<T> collectionTarget) {
+        collectionTarget.addAll(collectionSource);
     }
 
     private static void setContactName(ContactDto dto, Name name, Contact contact) {
@@ -74,12 +80,5 @@ public class DtoMapper {
     private static void setContactNote(ContactDto dto, Note note, Contact contact) {
         note.setText(dto.getNote());
         contact.setNote(note);
-    }
-
-    private static void setContactCollections(ContactDto dto, Contact contact) {
-        dto.getTelephones().forEach(telephone -> contact.getTelephones().add(telephone));
-        dto.getAddresses().forEach(address -> contact.getAddresses().add(address));
-        dto.getEmails().forEach(email -> contact.getEmails().add(email));
-        dto.getMessengers().forEach(messenger -> contact.getMessengers().add(messenger));
     }
 }
