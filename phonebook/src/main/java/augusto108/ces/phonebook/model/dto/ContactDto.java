@@ -29,10 +29,10 @@ public class ContactDto extends BaseUUID {
     private DateType dateType;
     private String note;
 
-    private Set<Telephone> telephones = new HashSet<>();
-    private Set<Address> addresses = new HashSet<>();
-    private Set<Email> emails = new HashSet<>();
-    private Set<InstantMessenger> messengers = new HashSet<>();
+    private final Set<Telephone> telephones = new HashSet<>();
+    private final Set<Address> addresses = new HashSet<>();
+    private final Set<Email> emails = new HashSet<>();
+    private final Set<InstantMessenger> messengers = new HashSet<>();
 
     public String getFirstName() {
         return firstName;
@@ -150,31 +150,15 @@ public class ContactDto extends BaseUUID {
         return telephones;
     }
 
-    public void setTelephones(Set<Telephone> telephones) {
-        this.telephones = telephones;
-    }
-
     public Set<Address> getAddresses() {
         return addresses;
-    }
-
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
     }
 
     public Set<Email> getEmails() {
         return emails;
     }
 
-    public void setEmails(Set<Email> emails) {
-        this.emails = emails;
-    }
-
     public Set<InstantMessenger> getMessengers() {
         return messengers;
-    }
-
-    public void setMessengers(Set<InstantMessenger> messengers) {
-        this.messengers = messengers;
     }
 }
