@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @MappedSuperclass
-public class BaseUUID {
+public abstract class BaseUUID {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -3,7 +3,7 @@ package augusto108.ces.phonebook.model.base;
 import jakarta.persistence.*;
 
 @MappedSuperclass
-public class BaseId {
+public abstract class BaseId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
