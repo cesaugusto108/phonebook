@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -98,6 +99,7 @@ class ToContactDtoTest {
                                      Address address,
                                      Email email,
                                      InstantMessenger messenger) {
+        contact.setId(UUID.fromString("e8fd1a03-1c85-45e0-8f35-8ee8520e2322"));
         contact.setName(name);
         contact.setRelationship(Relationship.FRIEND);
         contact.setCompany("Ambev");
@@ -123,6 +125,7 @@ class ToContactDtoTest {
     }
 
     private static void testNonCollectionFields(ContactDto contactDto, SimpleDateFormat simpleDateFormat) {
+        assertEquals("e8fd1a03-1c85-45e0-8f35-8ee8520e2322", contactDto.getId().toString());
         assertEquals("Ana", contactDto.getFirstName());
         assertEquals("Maria", contactDto.getMiddleName());
         assertEquals("Santos", contactDto.getLastName());
