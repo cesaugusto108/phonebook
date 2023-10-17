@@ -33,15 +33,14 @@ class ToContactDtoTest {
     }
 
     private static Name getName() {
-        final Name name = new Name();
-        name.setFirstName("Ana");
-        name.setMiddleName("Maria");
-        name.setLastName("Santos");
-        name.setNickname("Aninha");
-        name.setPhoneticFirstName("Ana");
-        name.setPhoneticMiddleName("Mareeah");
-        name.setPhoneticLastName("Sahntoss");
-        return name;
+        return new Name(
+                "Ana",
+                "Maria",
+                "Santos",
+                "Aninha",
+                "Ana",
+                "Mareeah",
+                "Sahntoss");
     }
 
     private static Date getDate() {

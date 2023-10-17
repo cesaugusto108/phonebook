@@ -121,12 +121,12 @@ public class ToContactTest {
     }
 
     private static void testNonCollectionFields(Contact contact, SimpleDateFormat simpleDateFormat) {
-        assertEquals("Fernanda", contact.getName().getFirstName());
-        assertEquals("Santos", contact.getName().getMiddleName());
-        assertEquals("Sá", contact.getName().getLastName());
-        assertEquals("Fernanda", contact.getName().getPhoneticFirstName());
-        assertEquals("Sahntoss", contact.getName().getPhoneticMiddleName());
-        assertEquals("Sah", contact.getName().getPhoneticLastName());
+        assertEquals("Fernanda", contact.getName().firstName());
+        assertEquals("Santos", contact.getName().middleName());
+        assertEquals("Sá", contact.getName().lastName());
+        assertEquals("Fernanda", contact.getName().phoneticFirstName());
+        assertEquals("Sahntoss", contact.getName().phoneticMiddleName());
+        assertEquals("Sah", contact.getName().phoneticLastName());
         assertEquals("FRIEND", contact.getRelationship().toString());
         assertEquals("Mercado Livre", contact.getCompany());
         assertEquals("Mrs", contact.getTitle());

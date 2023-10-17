@@ -16,13 +16,13 @@ public class DtoMapper {
         final Name name = contact.getName();
         final Date date = contact.getDate();
         final Note note = contact.getNote();
-        dto.setFirstName(name.getFirstName());
-        dto.setMiddleName(name.getMiddleName());
-        dto.setLastName(name.getLastName());
-        dto.setNickname(name.getNickname());
-        dto.setPhoneticFirstName(name.getPhoneticFirstName());
-        dto.setPhoneticMiddleName(name.getPhoneticMiddleName());
-        dto.setPhoneticLastName(name.getPhoneticLastName());
+        dto.setFirstName(name.firstName());
+        dto.setMiddleName(name.middleName());
+        dto.setLastName(name.lastName());
+        dto.setNickname(name.nickname());
+        dto.setPhoneticFirstName(name.phoneticFirstName());
+        dto.setPhoneticMiddleName(name.phoneticMiddleName());
+        dto.setPhoneticLastName(name.phoneticLastName());
         dto.setRelationship(contact.getRelationship());
         dto.setCompany(contact.getCompany());
         dto.setTitle(contact.getTitle());
@@ -39,9 +39,8 @@ public class DtoMapper {
 
     public static Contact fromContactDtoToContact(ContactDto dto) {
         final Contact contact = new Contact();
-        final Name name = new Name();
         final Date date = new Date();
-        setContactName(dto, name, contact);
+        setContactName(dto, contact);
         contact.setRelationship(dto.getRelationship());
         contact.setCompany(dto.getCompany());
         contact.setTitle(dto.getTitle());
@@ -59,15 +58,16 @@ public class DtoMapper {
         collectionTarget.addAll(collectionSource);
     }
 
-    private static void setContactName(ContactDto dto, Name name, Contact contact) {
-        name.setFirstName(dto.getFirstName());
-        name.setMiddleName(dto.getMiddleName());
-        name.setLastName(dto.getLastName());
-        name.setNickname(dto.getNickname());
-        name.setPhoneticFirstName(dto.getPhoneticFirstName());
-        name.setPhoneticMiddleName(dto.getPhoneticMiddleName());
-        name.setPhoneticLastName(dto.getPhoneticLastName());
-        contact.setName(name);
+    private static void setContactName(ContactDto dto, Contact contact) {
+        final Name n = new Name(
+                dto.getFirstName(),
+                dto.getMiddleName(),
+                dto.getLastName(),
+                dto.getNickname(),
+                dto.getPhoneticFirstName(),
+                dto.getPhoneticMiddleName(),
+                dto.getPhoneticLastName());
+        contact.setName(n);
     }
 
     private static void setContactDate(ContactDto dto, Date date, Contact contact) {
