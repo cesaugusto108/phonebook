@@ -36,7 +36,7 @@ public class Contact extends BaseUUID {
     @Embedded
     private Note note;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "contact_telephone",
             joinColumns = @JoinColumn(name = "contact_id"),
@@ -44,7 +44,7 @@ public class Contact extends BaseUUID {
     )
     private final Set<Telephone> telephones = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "contact_address",
             joinColumns = @JoinColumn(name = "contact_id"),
@@ -52,7 +52,7 @@ public class Contact extends BaseUUID {
     )
     private final Set<Address> addresses = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "contact_email",
             joinColumns = @JoinColumn(name = "contact_id"),
@@ -60,7 +60,7 @@ public class Contact extends BaseUUID {
     )
     private final Set<Email> emails = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "contact_im",
             joinColumns = @JoinColumn(name = "contact_id"),
