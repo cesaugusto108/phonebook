@@ -16,6 +16,7 @@ public class DtoMapper {
         final Name name = contact.getName();
         final Date date = contact.getDate();
         final Note note = contact.getNote();
+        dto.setId(contact.getId());
         dto.setFirstName(name.firstName());
         dto.setMiddleName(name.middleName());
         dto.setLastName(name.lastName());
@@ -27,9 +28,9 @@ public class DtoMapper {
         dto.setCompany(contact.getCompany());
         dto.setTitle(contact.getTitle());
         dto.setWebsite(contact.getWebsite());
-        dto.setDate(date.date());
-        dto.setDateType(date.dateType());
-        dto.setNote(note.note());
+        if (date != null) dto.setDate(date.date());
+        if (date != null) dto.setDateType(date.dateType());
+        if (note != null) dto.setNote(note.note());
         setCollections(contact.getTelephones(), dto.getTelephones());
         setCollections(contact.getAddresses(), dto.getAddresses());
         setCollections(contact.getEmails(), dto.getEmails());
