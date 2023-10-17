@@ -131,8 +131,8 @@ public class ToContactTest {
         assertEquals("Mercado Livre", contact.getCompany());
         assertEquals("Mrs", contact.getTitle());
         assertEquals("www.fake.com", contact.getWebsite());
-        assertEquals("1991-10-01", simpleDateFormat.format(contact.getDate().getDate()));
-        assertEquals(DateType.OTHER, contact.getDate().getDateType());
+        assertEquals("1991-10-01", simpleDateFormat.format(contact.getDate().date()));
+        assertEquals(DateType.OTHER, contact.getDate().dateType());
         assertEquals("Lorem ipsum", contact.getNote().note());
     }
 

@@ -44,12 +44,9 @@ class ToContactDtoTest {
     }
 
     private static Date getDate() {
-        final Date date = new Date();
         final Calendar calendar = Calendar.getInstance();
         calendar.set(1991, Calendar.OCTOBER, 1);
-        date.setDate(calendar.getTime());
-        date.setDateType(DateType.BIRTHDAY);
-        return date;
+        return new Date(calendar.getTime(), DateType.BIRTHDAY);
     }
 
     private static Telephone getTelephone() {

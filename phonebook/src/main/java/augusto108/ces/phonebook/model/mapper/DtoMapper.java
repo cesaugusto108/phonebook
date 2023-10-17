@@ -27,8 +27,8 @@ public class DtoMapper {
         dto.setCompany(contact.getCompany());
         dto.setTitle(contact.getTitle());
         dto.setWebsite(contact.getWebsite());
-        dto.setDate(date.getDate());
-        dto.setDateType(date.getDateType());
+        dto.setDate(date.date());
+        dto.setDateType(date.dateType());
         dto.setNote(note.note());
         setCollections(contact.getTelephones(), dto.getTelephones());
         setCollections(contact.getAddresses(), dto.getAddresses());
@@ -39,13 +39,12 @@ public class DtoMapper {
 
     public static Contact fromContactDtoToContact(ContactDto dto) {
         final Contact contact = new Contact();
-        final Date date = new Date();
         setContactName(dto, contact);
         contact.setRelationship(dto.getRelationship());
         contact.setCompany(dto.getCompany());
         contact.setTitle(dto.getTitle());
         contact.setWebsite(dto.getWebsite());
-        setContactDate(dto, date, contact);
+        setContactDate(dto, contact);
         setContactNote(dto, contact);
         setCollections(dto.getTelephones(), contact.getTelephones());
         setCollections(dto.getAddresses(), contact.getAddresses());
@@ -59,7 +58,7 @@ public class DtoMapper {
     }
 
     private static void setContactName(ContactDto dto, Contact contact) {
-        final Name n = new Name(
+        final Name name = new Name(
                 dto.getFirstName(),
                 dto.getMiddleName(),
                 dto.getLastName(),
@@ -67,12 +66,11 @@ public class DtoMapper {
                 dto.getPhoneticFirstName(),
                 dto.getPhoneticMiddleName(),
                 dto.getPhoneticLastName());
-        contact.setName(n);
+        contact.setName(name);
     }
 
-    private static void setContactDate(ContactDto dto, Date date, Contact contact) {
-        date.setDate(dto.getDate());
-        date.setDateType(dto.getDateType());
+    private static void setContactDate(ContactDto dto, Contact contact) {
+        final Date date = new Date(dto.getDate(), dto.getDateType());
         contact.setDate(date);
     }
 
