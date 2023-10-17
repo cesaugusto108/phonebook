@@ -60,12 +60,8 @@ class ToContactDtoTest {
     }
 
     private static Address getAddress() {
-        final Country country = new Country();
-        country.setName("Brasil");
-        final City city = new City();
-        city.setName("Aracaju");
-        city.setState("Sergipe");
-        city.setCountry(country);
+        final Country country = new Country("Brasil");
+        final City city = new City("Aracaju", "Sergipe", country);
         final Address address = new Address();
         address.setStreet("Ivo do Prado");
         address.setNumber("1199");
@@ -162,9 +158,9 @@ class ToContactDtoTest {
         final String complement = address.getComplement();
         final String district = address.getDistrict();
         final String postalCode = address.getPostalCode();
-        final String cityName = address.getCity().getName();
-        final String cityState = address.getCity().getState();
-        final String countryName = address.getCity().getCountry().getName();
+        final String cityName = address.getCity().name();
+        final String cityState = address.getCity().state();
+        final String countryName = address.getCity().country().name();
         final String addressType = address.getAddressType().toString();
         final String addressString =
                 street + ", " + number + ", " + complement + ", " + district + ", " + postalCode + ", " +

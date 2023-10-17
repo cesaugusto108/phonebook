@@ -4,16 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class Country {
+public record Country(@Column(name = "country_name", length = 40) String name) {
 
-    @Column(name = "country_name", length = 40)
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public Country() {
+        this("");
     }
 }

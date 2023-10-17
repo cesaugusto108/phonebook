@@ -50,17 +50,13 @@ public class ToContactTest {
 
     private static Address getAddress() {
         final Address address = new Address();
-        final City city = new City();
-        final Country country = new Country();
+        final Country country = new Country("Brasil");
+        final City city = new City("Aracaju", "Sergipe", country);
         address.setStreet("Amazonas");
         address.setNumber("352");
         address.setComplement("Casa A");
         address.setDistrict("Siqueira Campos");
         address.setPostalCode("49180-990");
-        city.setName("Aracaju");
-        city.setState("Sergipe");
-        country.setName("Brasil");
-        city.setCountry(country);
         address.setCity(city);
         address.setAddressType(AddressType.HOME);
         address.setId(14);
@@ -155,9 +151,9 @@ public class ToContactTest {
         final String complement = address.getComplement();
         final String district = address.getDistrict();
         final String postalCode = address.getPostalCode();
-        final String cityName = address.getCity().getName();
-        final String cityState = address.getCity().getState();
-        final String countryName = address.getCity().getCountry().getName();
+        final String cityName = address.getCity().name();
+        final String cityState = address.getCity().state();
+        final String countryName = address.getCity().country().name();
         final String addressType = address.getAddressType().toString();
         final String addressString =
                 street + ", " + number + ", " + complement + ", " + district + ", " + postalCode + ", " +
