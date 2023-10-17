@@ -9,8 +9,4 @@ public record Note(@Column(name = "note") String note) {
     public Note() {
         this("");
     }
-
-    public String note() {
-        return note;
-    }
 }
