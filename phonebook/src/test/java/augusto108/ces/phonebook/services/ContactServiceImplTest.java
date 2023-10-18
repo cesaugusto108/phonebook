@@ -4,6 +4,7 @@ import augusto108.ces.phonebook.TestContainersConfiguration;
 import augusto108.ces.phonebook.model.dto.ContactDto;
 import augusto108.ces.phonebook.model.entities.Contact;
 import augusto108.ces.phonebook.repository.ContactRepository;
+import jakarta.persistence.NoResultException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -55,6 +55,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         assertNull(contact.getTitle());
         assertNull(contact.getWebsite());
         assertNull(contact.getNote());
+        assertThrows(NoResultException.class, this::findByInvalidId);
     }
 
     @Test
@@ -65,5 +66,9 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         final List<Contact> contacts = contactRepository.findAll();
         assertEquals(14, contacts.size());
         contactRepository.deleteById(contact.getId());
+    }
+
+    private void findByInvalidId() {
+        contactService.findContactById("e8fd1a04-1d85-35e0-8f25-7ee0520e1899");
     }
 }
