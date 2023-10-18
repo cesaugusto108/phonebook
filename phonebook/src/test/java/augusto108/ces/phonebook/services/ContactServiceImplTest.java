@@ -1,6 +1,7 @@
 package augusto108.ces.phonebook.services;
 
 import augusto108.ces.phonebook.TestContainersConfiguration;
+import augusto108.ces.phonebook.model.datatypes.Name;
 import augusto108.ces.phonebook.model.dto.ContactDto;
 import augusto108.ces.phonebook.model.entities.Contact;
 import augusto108.ces.phonebook.repository.ContactRepository;
@@ -66,6 +67,21 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         final List<Contact> contacts = contactRepository.findAll();
         assertEquals(14, contacts.size());
         contactRepository.deleteById(contact.getId());
+    }
+
+    @Test
+    void deleteContact() {
+        final Name name = new Name("Marina", "", "", "", "", "", "");
+        Contact contact = new Contact();
+        contact.setName(name);
+        List<Contact> contacts = contactRepository.findAll();
+        assertEquals(13, contacts.size());
+        contact = contactRepository.save(contact);
+        contacts = contactRepository.findAll();
+        assertEquals(14, contacts.size());
+        contactService.deleteContact(contact.getId().toString());
+        contacts = contactRepository.findAll();
+        assertEquals(13, contacts.size());
     }
 
     private void findByInvalidId() {

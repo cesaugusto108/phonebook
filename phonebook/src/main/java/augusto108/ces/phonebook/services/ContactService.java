@@ -10,4 +10,6 @@ public interface ContactService {
     ContactDto findContactById(String id);
 
     ContactDto saveContact(ContactDto dto);
+
+    void deleteContact(String id);
 }

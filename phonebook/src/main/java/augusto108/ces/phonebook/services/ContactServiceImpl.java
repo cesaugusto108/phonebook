@@ -39,4 +39,9 @@ public class ContactServiceImpl implements ContactService {
         final Contact contact = contactRepository.save(DtoMapper.fromContactDtoToContact(dto));
         return DtoMapper.fromContactToContactDto(contact);
     }
+
+    @Override
+    public void deleteContact(String id) {
+        contactRepository.deleteById(UUID.fromString(id));
+    }
 }
