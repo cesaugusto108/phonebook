@@ -33,4 +33,10 @@ public class ContactServiceImpl implements ContactService {
                 .orElseThrow(() -> new NoResultException("No result found for id: " + id));
         return DtoMapper.fromContactToContactDto(contact);
     }
+
+    @Override
+    public ContactDto saveContact(ContactDto dto) {
+        final Contact contact = contactRepository.save(DtoMapper.fromContactDtoToContact(dto));
+        return DtoMapper.fromContactToContactDto(contact);
+    }
 }

@@ -2,6 +2,8 @@ package augusto108.ces.phonebook.services;
 
 import augusto108.ces.phonebook.TestContainersConfiguration;
 import augusto108.ces.phonebook.model.dto.ContactDto;
+import augusto108.ces.phonebook.model.entities.Contact;
+import augusto108.ces.phonebook.repository.ContactRepository;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -20,6 +24,9 @@ class ContactServiceImplTest extends TestContainersConfiguration {
 
     @Autowired
     private ContactService contactService;
+
+    @Autowired
+    private ContactRepository contactRepository;
 
     @Test
     void findAllContacts() {
@@ -48,5 +55,15 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         assertNull(contact.getTitle());
         assertNull(contact.getWebsite());
         assertNull(contact.getNote());
+    }
+
+    @Test
+    void saveContact() {
+        final ContactDto dto = new ContactDto();
+        dto.setFirstName("Joaquim");
+        final ContactDto contact = contactService.saveContact(dto);
+        final List<Contact> contacts = contactRepository.findAll();
+        assertEquals(14, contacts.size());
+        contactRepository.deleteById(contact.getId());
     }
 }

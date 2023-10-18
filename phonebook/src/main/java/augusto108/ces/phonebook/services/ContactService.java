@@ -8,4 +8,6 @@ public interface ContactService {
     Page<ContactDto> findAllContacts(int page, int size);
 
     ContactDto findContactById(String id);
+
+    ContactDto saveContact(ContactDto dto);
 }
