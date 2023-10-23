@@ -4,6 +4,7 @@ import augusto108.ces.phonebook.TestContainersConfiguration;
 import augusto108.ces.phonebook.model.datatypes.Name;
 import augusto108.ces.phonebook.model.dto.ContactDto;
 import augusto108.ces.phonebook.model.entities.Contact;
+import augusto108.ces.phonebook.model.mapper.DtoMapper;
 import augusto108.ces.phonebook.repository.ContactRepository;
 import jakarta.persistence.NoResultException;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,6 +69,41 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         final List<Contact> contacts = contactRepository.findAll();
         assertEquals(14, contacts.size());
         contactRepository.deleteById(contact.getId());
+    }
+
+    @Test
+    void updateContact() {
+        Contact contact = contactRepository
+                .findById(UUID.fromString("e8fd1a04-1c85-45e0-8f35-8ee8520e1800"))
+                .orElseThrow(NoResultException::new);
+        assertEquals("Robson", contact.getName().firstName()); // checks object in db is the one expected
+
+        ContactDto dto = DtoMapper.fromContactToContactDto(contact);
+        assertEquals("e8fd1a04-1c85-45e0-8f35-8ee8520e1800", dto.getId().toString()); // checks id is the same
+
+        dto.setFirstName("Joana");
+        dto = contactService.updateContact(dto);
+        assertEquals("Joana", dto.getFirstName()); // checks the obj returned from the method has name set before
+
+        contact = contactRepository
+                .findById(UUID.fromString("e8fd1a04-1c85-45e0-8f35-8ee8520e1800"))
+                .orElseThrow(NoResultException::new);
+        assertEquals("Joana", contact.getName().firstName()); // checks object in db has updated name
+
+        List<Contact> contacts = contactRepository.findAll();
+        assertEquals(13, contacts.size()); // checks number of objs stays the same
+
+        dto.setFirstName("Robson"); // sets objs name back to original
+        dto = contactService.updateContact(dto);
+        assertEquals("Robson", dto.getFirstName()); // checks the obj returned from the method has name set before
+
+        contact = contactRepository
+                .findById(UUID.fromString("e8fd1a04-1c85-45e0-8f35-8ee8520e1800"))
+                .orElseThrow(NoResultException::new);
+        assertEquals("Robson", contact.getName().firstName()); // checks object in db has updated name
+
+        contacts = contactRepository.findAll();
+        assertEquals(13, contacts.size()); // checks number of objs stays the same
     }
 
     @Test

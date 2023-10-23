@@ -11,5 +11,7 @@ public interface ContactService {
 
     ContactDto saveContact(ContactDto dto);
 
+    ContactDto updateContact(ContactDto dto);
+
     void deleteContact(String id);
 }

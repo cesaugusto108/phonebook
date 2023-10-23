@@ -41,6 +41,7 @@ public class DtoMapper {
     public static Contact fromContactDtoToContact(ContactDto dto) {
         final Contact contact = new Contact();
         setContactName(dto, contact);
+        contact.setId(dto.getId());
         contact.setRelationship(dto.getRelationship());
         contact.setCompany(dto.getCompany());
         contact.setTitle(dto.getTitle());

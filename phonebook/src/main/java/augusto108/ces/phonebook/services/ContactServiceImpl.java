@@ -5,6 +5,7 @@ import augusto108.ces.phonebook.model.entities.Contact;
 import augusto108.ces.phonebook.model.mapper.DtoMapper;
 import augusto108.ces.phonebook.repository.ContactRepository;
 import jakarta.persistence.NoResultException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,13 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public ContactDto saveContact(ContactDto dto) {
         final Contact contact = contactRepository.save(DtoMapper.fromContactDtoToContact(dto));
+        return DtoMapper.fromContactToContactDto(contact);
+    }
+
+    @Override
+    public ContactDto updateContact(ContactDto dto) {
+        Contact contact = DtoMapper.fromContactDtoToContact(dto);
+        contact = contactRepository.save(contact);
         return DtoMapper.fromContactToContactDto(contact);
     }
 
