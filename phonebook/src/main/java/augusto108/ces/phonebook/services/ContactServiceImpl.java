@@ -43,9 +43,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public ContactDto updateContact(ContactDto dto) {
-        Contact contact = DtoMapper.fromContactDtoToContact(dto);
-        contact = contactRepository.save(contact);
-        return DtoMapper.fromContactToContactDto(contact);
+        return saveContact(dto);
     }
 
     @Override
