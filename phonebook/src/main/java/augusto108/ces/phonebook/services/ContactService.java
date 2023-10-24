@@ -9,9 +9,7 @@ public interface ContactService {
 
     ContactDto findContactById(String id);
 
-    ContactDto saveContact(ContactDto dto);
-
-    ContactDto updateContact(ContactDto dto);
+    ContactDto saveOrUpdateContact(ContactDto dto);
 
     void deleteContact(String id);
 }
