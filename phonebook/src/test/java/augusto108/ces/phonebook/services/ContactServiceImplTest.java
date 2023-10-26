@@ -1,9 +1,12 @@
 package augusto108.ces.phonebook.services;
 
 import augusto108.ces.phonebook.TestContainersConfiguration;
+import augusto108.ces.phonebook.model.datatypes.City;
+import augusto108.ces.phonebook.model.datatypes.Country;
 import augusto108.ces.phonebook.model.datatypes.Name;
 import augusto108.ces.phonebook.model.dto.ContactDto;
-import augusto108.ces.phonebook.model.entities.Contact;
+import augusto108.ces.phonebook.model.entities.*;
+import augusto108.ces.phonebook.model.enums.InstantMessengerType;
 import augusto108.ces.phonebook.model.mapper.DtoMapper;
 import augusto108.ces.phonebook.repository.ContactRepository;
 import jakarta.persistence.NoResultException;
@@ -65,6 +68,27 @@ class ContactServiceImplTest extends TestContainersConfiguration {
     void saveContact() {
         final ContactDto dto = new ContactDto();
         dto.setFirstName("Joaquim");
+
+        final Address address = new Address();
+        address.setStreet("Ivo do Prado");
+        address.setNumber("823");
+        address.setCity(new City("Aracaju", "Sergipe", new Country("Brasil")));
+        dto.getAddresses().add(address);
+
+        final Telephone telephone = new Telephone();
+        telephone.setNumber("998102510");
+        dto.getTelephones().add(telephone);
+
+        final Email email = new Email();
+        email.setUsername("joaquim");
+        email.setDomain("email.com");
+        dto.getEmails().add(email);
+
+        final InstantMessenger messenger = new InstantMessenger();
+        messenger.setUsername("@joaquim");
+        messenger.setImType(InstantMessengerType.INSTAGRAM);
+        dto.getMessengers().add(messenger);
+
         final ContactDto contact = contactService.saveOrUpdateContact(dto);
         final List<Contact> contacts = contactRepository.findAll();
         assertEquals(14, contacts.size());
