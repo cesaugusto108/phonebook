@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS `instant_messenger`
 CREATE TABLE IF NOT EXISTS `telephone`
 (
     `id`             int         NOT NULL AUTO_INCREMENT,
-    `area_code`      varchar(4)                                                                                                                                                                DEFAULT NULL,
-    `country_code`   varchar(3)                                                                                                                                                                DEFAULT NULL,
+    `area_code`      varchar(4)                                                                                                                                                                          DEFAULT NULL,
+    `country_code`   varchar(3)                                                                                                                                                                          DEFAULT NULL,
     `number`         varchar(20) NOT NULL,
     `telephone_type` enum ('CALLBACK','CAR','COMPANY_MAIN','HOME','HOME_FAX','ISDN','MAIN','MOBILE', 'OTHER','OTHER_FAX','PAGER','RADIO','TELEX','TTY_TDD','WORK','WORK_FAX','WORK_MOBILE','WORK_PAGER') DEFAULT NULL,
     PRIMARY KEY (`id`)
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `telephone`
 
 CREATE TABLE IF NOT EXISTS `contact`
 (
-    `id`                   binary(16)  NOT NULL,
+    `id`                   char(36)    NOT NULL,
     `company`              varchar(20)                                                                                                                                                        DEFAULT NULL,
     `date`                 datetime(6)                                                                                                                                                        DEFAULT NULL,
     `date_type`            enum ('ANNIVERSARY','BIRTHDAY','OTHER')                                                                                                                            DEFAULT NULL,
@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS `contact`
 
 CREATE TABLE IF NOT EXISTS `contact_address`
 (
-    `contact_id` binary(16) NOT NULL,
-    `address_id` int        NOT NULL,
+    `contact_id` char(36) NOT NULL,
+    `address_id` int      NOT NULL,
     PRIMARY KEY (`contact_id`, `address_id`),
     KEY `FKa63wvjlxiwgo0098siqj9kjav` (`address_id`),
     CONSTRAINT `FKa63wvjlxiwgo0098siqj9kjav` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`),
@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS `contact_address`
 
 CREATE TABLE IF NOT EXISTS `contact_email`
 (
-    `contact_id` binary(16) NOT NULL,
-    `email_id`   int        NOT NULL,
+    `contact_id` char(36) NOT NULL,
+    `email_id`   int      NOT NULL,
     PRIMARY KEY (`contact_id`, `email_id`),
     KEY `FK2wlgsyv59totqq1ghc75yvwmc` (`email_id`),
     CONSTRAINT `FK2wlgsyv59totqq1ghc75yvwmc` FOREIGN KEY (`email_id`) REFERENCES `email` (`id`),
@@ -82,8 +82,8 @@ CREATE TABLE IF NOT EXISTS `contact_email`
 
 CREATE TABLE IF NOT EXISTS `contact_im`
 (
-    `contact_id` binary(16) NOT NULL,
-    `im_id`      int        NOT NULL,
+    `contact_id` char(36) NOT NULL,
+    `im_id`      int      NOT NULL,
     PRIMARY KEY (`contact_id`, `im_id`),
     KEY `FKj46oq6ju6r14qk6kv0jxgo06d` (`im_id`),
     CONSTRAINT `FKauacpkvx9ie06frrcspfhmoyv` FOREIGN KEY (`contact_id`) REFERENCES `contact` (`id`),
@@ -92,8 +92,8 @@ CREATE TABLE IF NOT EXISTS `contact_im`
 
 CREATE TABLE IF NOT EXISTS `contact_telephone`
 (
-    `contact_id`   binary(16) NOT NULL,
-    `telephone_id` int        NOT NULL,
+    `contact_id`   char(36) NOT NULL,
+    `telephone_id` int      NOT NULL,
     PRIMARY KEY (`contact_id`, `telephone_id`),
     KEY `FK921in21ry2gn6rqgpevd66lcj` (`telephone_id`),
     CONSTRAINT `FK921in21ry2gn6rqgpevd66lcj` FOREIGN KEY (`telephone_id`) REFERENCES `telephone` (`id`),
