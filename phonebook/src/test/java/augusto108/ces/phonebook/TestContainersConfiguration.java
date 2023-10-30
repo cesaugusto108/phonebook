@@ -6,7 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.test.context.ContextConfiguration;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.MariaDBContainer;
 import org.testcontainers.lifecycle.Startables;
 
 import java.util.HashMap;
@@ -15,17 +15,17 @@ import java.util.Map;
 @ContextConfiguration(initializers = {TestContainersConfiguration.Initializer.class})
 public class TestContainersConfiguration {
 
-    private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>("mysql:8.0.33");
+    private static final MariaDBContainer<?> MARIA_DB_CONTAINER = new MariaDBContainer<>("mariadb:10.11.4");
 
     private static void startContainer() {
-        Startables.deepStart(MY_SQL_CONTAINER).join();
+        Startables.deepStart(MARIA_DB_CONTAINER).join();
     }
 
     private static Map<String, Object> createTestContainersConnectionConfiguration() {
         final Map<String, Object> map = new HashMap<>();
-        map.put("spring.datasource.url", MY_SQL_CONTAINER.getJdbcUrl());
-        map.put("spring.datasource.username", MY_SQL_CONTAINER.getUsername());
-        map.put("spring.datasource.password", MY_SQL_CONTAINER.getPassword());
+        map.put("spring.datasource.url", MARIA_DB_CONTAINER.getJdbcUrl());
+        map.put("spring.datasource.username", MARIA_DB_CONTAINER.getUsername());
+        map.put("spring.datasource.password", MARIA_DB_CONTAINER.getPassword());
         return map;
     }
 
