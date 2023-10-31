@@ -1,6 +1,16 @@
 package augusto108.ces.phonebook.controller;
 
 import augusto108.ces.phonebook.TestContainersConfiguration;
+import augusto108.ces.phonebook.model.datatypes.Name;
+import augusto108.ces.phonebook.model.dto.ContactDto;
+import augusto108.ces.phonebook.model.entities.Contact;
+import augusto108.ces.phonebook.model.entities.Email;
+import augusto108.ces.phonebook.model.entities.Telephone;
+import augusto108.ces.phonebook.model.enums.Relationship;
+import augusto108.ces.phonebook.model.mapper.DtoMapper;
+import augusto108.ces.phonebook.repository.ContactRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.NoResultException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -10,8 +20,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.UUID;
+
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -22,6 +34,12 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private ContactRepository contactRepository;
 
     @Test
     void findAllContacts() throws Exception {
@@ -48,6 +66,61 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                 .andExpect(jsonPath("$.firstName", is("Robson")))
                 .andExpect(jsonPath("$.messengers[0].username", is("@rthurnham0")))
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1800")))
+                .andExpect(jsonPath("$._links.contacts.href", is("http://localhost/api/v1/contacts")));
+    }
+
+    @Test
+    void saveContact() throws Exception {
+        final ContactDto contact = new ContactDto();
+        contact.setFirstName("Samuel");
+        contact.setLastName("Dantas");
+        final Telephone telephone = new Telephone();
+        telephone.setNumber("999606060");
+        contact.getTelephones().add(telephone);
+        final Email email = new Email();
+        email.setUsername("samuel");
+        email.setDomain("email.com");
+        contact.getEmails().add(email);
+
+        mockMvc.perform(post("/api/v1/contacts")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(contact)))
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType("application/hal+json"))
+                .andExpect(jsonPath("$.firstName", is("Samuel")))
+                .andExpect(jsonPath("$.telephones[0].number", is("999606060")))
+                .andExpect(jsonPath("$.emails[0].username", is("samuel")))
+                .andExpect(jsonPath("$._links.contacts.href", is("http://localhost/api/v1/contacts")));
+    }
+
+    @Test
+    void updateContact() throws Exception {
+        final UUID id = UUID.fromString("e8fd1a04-1c85-45e0-8f35-8ee8520e1801");
+        Name name = new Name("Rebecca", "", "Souza", "", "", "", "");
+        Contact contact = contactRepository.findById(id).orElseThrow(NoResultException::new);
+        contact.setName(name);
+        contact.setRelationship(Relationship.FRIEND);
+
+        mockMvc.perform(put("/api/v1/contacts")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(DtoMapper.fromContactToContactDto(contact))))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/hal+json"))
+                .andExpect(jsonPath("$.firstName", is("Rebecca")))
+                .andExpect(jsonPath("$.relationship", is("FRIEND")))
+                .andExpect(jsonPath("$._links.contacts.href", is("http://localhost/api/v1/contacts")));
+
+        name = new Name("Rebeca", "Alves", "Souza", "", "", "", "");
+        contact.setName(name);
+        contact.setRelationship(Relationship.PARTNER);
+
+        mockMvc.perform(put("/api/v1/contacts")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(DtoMapper.fromContactToContactDto(contact))))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/hal+json"))
+                .andExpect(jsonPath("$.firstName", is("Rebeca")))
+                .andExpect(jsonPath("$.relationship", is("PARTNER")))
                 .andExpect(jsonPath("$._links.contacts.href", is("http://localhost/api/v1/contacts")));
     }
 }

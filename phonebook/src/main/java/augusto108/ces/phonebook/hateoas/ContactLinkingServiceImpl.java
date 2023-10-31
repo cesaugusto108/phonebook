@@ -41,4 +41,14 @@ public class ContactLinkingServiceImpl implements ContactLinkingService {
         contact.add(linkBuilder.slash(path).withRel("contacts"));
         return EntityModel.of(contact);
     }
+
+    @Override
+    public EntityModel<ContactDto> saveOrUpdateContact(ContactDto dto) {
+        final String path = "/api/v1/contacts/";
+        final WebMvcLinkBuilder linkBuilder = linkTo(ContactController.class);
+        final ContactDto contact = contactService.saveOrUpdateContact(dto);
+        contact.add(linkBuilder.slash(path).withSelfRel());
+        contact.add(linkBuilder.slash(path).withRel("contacts"));
+        return EntityModel.of(contact);
+    }
 }

@@ -1,12 +1,11 @@
 package augusto108.ces.phonebook.controller;
 
 import augusto108.ces.phonebook.model.dto.ContactDto;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 public interface ContactController {
 
@@ -18,4 +17,11 @@ public interface ContactController {
 
     @GetMapping(value = "/{id}", produces = "application/hal+json")
     ResponseEntity<EntityModel<ContactDto>> findContactById(@PathVariable("id") String id);
+
+    @RequestMapping(
+            value = {"", "/"},
+            method = {RequestMethod.POST, RequestMethod.PUT},
+            consumes = "application/json",
+            produces = "application/hal+json")
+    ResponseEntity<EntityModel<ContactDto>> saveOrUpdateContact(@RequestBody ContactDto dto, HttpServletRequest request);
 }

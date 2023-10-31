@@ -2,6 +2,7 @@ package augusto108.ces.phonebook.controller;
 
 import augusto108.ces.phonebook.hateoas.ContactLinkingService;
 import augusto108.ces.phonebook.model.dto.ContactDto;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
@@ -29,5 +30,12 @@ public class ContactControllerImpl implements ContactController {
     public ResponseEntity<EntityModel<ContactDto>> findContactById(String id) {
         final EntityModel<ContactDto> contact = linkingService.findContactById(id);
         return ResponseEntity.status(HttpStatus.OK).body(contact);
+    }
+
+    @Override
+    public ResponseEntity<EntityModel<ContactDto>> saveOrUpdateContact(ContactDto dto, HttpServletRequest request) {
+        final EntityModel<ContactDto> contact = linkingService.saveOrUpdateContact(dto);
+        if (request.getMethod().equals("POST")) return ResponseEntity.status(HttpStatus.CREATED).body(contact);
+        else return ResponseEntity.status(HttpStatus.OK).body(contact);
     }
 }
