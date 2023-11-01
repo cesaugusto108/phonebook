@@ -2,6 +2,7 @@ package augusto108.ces.phonebook.controller;
 
 import augusto108.ces.phonebook.hateoas.ContactLinkingService;
 import augusto108.ces.phonebook.model.dto.ContactDto;
+import augusto108.ces.phonebook.services.ContactService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ContactControllerImpl implements ContactController {
 
     private final ContactLinkingService linkingService;
+    private final ContactService contactService;
 
-    public ContactControllerImpl(ContactLinkingService linkingService) {
+    public ContactControllerImpl(ContactLinkingService linkingService, ContactService contactService) {
         this.linkingService = linkingService;
+        this.contactService = contactService;
     }
 
     @Override
@@ -37,5 +40,11 @@ public class ContactControllerImpl implements ContactController {
         final EntityModel<ContactDto> contact = linkingService.saveOrUpdateContact(dto);
         if (request.getMethod().equals("POST")) return ResponseEntity.status(HttpStatus.CREATED).body(contact);
         else return ResponseEntity.status(HttpStatus.OK).body(contact);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteContact(String id) {
+        contactService.deleteContact(id);
+        return ResponseEntity.noContent().build();
     }
 }

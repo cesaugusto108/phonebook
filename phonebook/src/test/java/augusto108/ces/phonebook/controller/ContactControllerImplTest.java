@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -122,5 +123,19 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                 .andExpect(jsonPath("$.firstName", is("Rebeca")))
                 .andExpect(jsonPath("$.relationship", is("PARTNER")))
                 .andExpect(jsonPath("$._links.contacts.href", is("http://localhost/api/v1/contacts")));
+    }
+
+    @Test
+    void deleteContact() throws Exception {
+        final ContactDto contact = new ContactDto();
+        contact.setFirstName("Samuel");
+        contact.setLastName("Dantas");
+        final String id = String.valueOf(contactRepository.save(DtoMapper.fromContactDtoToContact(contact)).getId());
+        assertEquals(14, contactRepository.findAll().size());
+
+        mockMvc.perform(delete("/api/v1/contacts/{id}", id))
+                .andExpect(status().isNoContent());
+
+        assertEquals(13, contactRepository.findAll().size());
     }
 }

@@ -24,4 +24,7 @@ public interface ContactController {
             consumes = "application/json",
             produces = "application/hal+json")
     ResponseEntity<EntityModel<ContactDto>> saveOrUpdateContact(@RequestBody ContactDto dto, HttpServletRequest request);
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> deleteContact(@PathVariable("id") String id);
 }
