@@ -74,6 +74,12 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.message", is("No result found for id: e8fd1a04-1c85-45e0-8f35-8ee8520e1825")))
                 .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")));
+
+        mockMvc.perform(get("/api/v1/contacts/id/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e1800"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.message", is("No endpoint GET /api/v1/contacts/id/e8fd1a04-1c85-45e0-8f35-8ee8520e1800.")))
+                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")));
     }
 
     @Test
@@ -144,10 +150,16 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 
         assertEquals(13, contactRepository.findAll().size());
 
-        mockMvc.perform(get("/api/v1/contacts/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e1825"))
+        mockMvc.perform(delete("/api/v1/contacts/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e1825"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.message", is("No result found for id: e8fd1a04-1c85-45e0-8f35-8ee8520e1825")))
+                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")));
+
+        mockMvc.perform(delete("/api/v1/contacts/id/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e1800"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.message", is("No endpoint DELETE /api/v1/contacts/id/e8fd1a04-1c85-45e0-8f35-8ee8520e1800.")))
                 .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")));
     }
 }

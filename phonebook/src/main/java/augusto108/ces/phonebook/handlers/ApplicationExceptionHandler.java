@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.time.Instant;
 import java.util.Date;
@@ -13,8 +14,8 @@ import java.util.Date;
 @ControllerAdvice
 public class ApplicationExceptionHandler {
 
-    @ExceptionHandler(NoResultException.class)
-    public ResponseEntity<ErrorResponse> handleNoResultFoundException(NoResultException e) {
+    @ExceptionHandler({NoResultException.class, NoHandlerFoundException.class})
+    public ResponseEntity<ErrorResponse> handleNotFound(Exception e) {
         final ErrorResponse response = new ErrorResponse(e.getMessage(), HttpStatus.NOT_FOUND, Date.from(Instant.now()));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
