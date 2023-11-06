@@ -68,6 +68,12 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                 .andExpect(jsonPath("$.messengers[0].username", is("@rthurnham0")))
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1800")))
                 .andExpect(jsonPath("$._links.contacts.href", is("http://localhost/api/v1/contacts")));
+
+        mockMvc.perform(get("/api/v1/contacts/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e1825"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.message", is("No result found for id: e8fd1a04-1c85-45e0-8f35-8ee8520e1825")))
+                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")));
     }
 
     @Test
@@ -137,5 +143,11 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                 .andExpect(status().isNoContent());
 
         assertEquals(13, contactRepository.findAll().size());
+
+        mockMvc.perform(get("/api/v1/contacts/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e1825"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.message", is("No result found for id: e8fd1a04-1c85-45e0-8f35-8ee8520e1825")))
+                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")));
     }
 }
