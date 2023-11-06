@@ -40,8 +40,9 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public ContactDto findContactById(String id) {
+        final UUID uuid = UUID.fromString(id);
         final Contact contact = contactRepository
-                .findById(UUID.fromString(id))
+                .findById(uuid)
                 .orElseThrow(() -> new NoResultException("No result found for id: " + id));
         return DtoMapper.fromContactToContactDto(contact);
     }
@@ -58,6 +59,10 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public void deleteContact(String id) {
-        contactRepository.deleteById(UUID.fromString(id));
+        final UUID uuid = UUID.fromString(id);
+        final Contact contact = contactRepository
+                .findById(uuid)
+                .orElseThrow(() -> new NoResultException("No result found for id: " + id));
+        contactRepository.delete(contact);
     }
 }

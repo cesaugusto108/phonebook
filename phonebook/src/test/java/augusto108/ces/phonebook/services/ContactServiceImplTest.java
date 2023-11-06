@@ -143,6 +143,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         contactService.deleteContact(contact.getId().toString());
         contacts = contactRepository.findAll();
         assertEquals(13, contacts.size());
+        assertThrows(NoResultException.class, () -> contactService.deleteContact("e8fd1a04-1d85-35e0-8f25-7ee0520e1818"));
     }
 
     private void findByInvalidId() {
