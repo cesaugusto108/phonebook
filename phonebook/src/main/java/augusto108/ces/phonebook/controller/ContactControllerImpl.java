@@ -36,10 +36,15 @@ public class ContactControllerImpl implements ContactController {
     }
 
     @Override
-    public ResponseEntity<EntityModel<ContactDto>> saveOrUpdateContact(ContactDto dto, HttpServletRequest request) {
+    public ResponseEntity<EntityModel<ContactDto>> saveContact(ContactDto dto, HttpServletRequest request) {
         final EntityModel<ContactDto> contact = linkingService.saveOrUpdateContact(dto);
-        if (request.getMethod().equals("POST")) return ResponseEntity.status(HttpStatus.CREATED).body(contact);
-        else return ResponseEntity.status(HttpStatus.OK).body(contact);
+        return ResponseEntity.status(HttpStatus.CREATED).body(contact);
+    }
+
+    @Override
+    public ResponseEntity<EntityModel<ContactDto>> updateContact(ContactDto dto, HttpServletRequest request) {
+        final EntityModel<ContactDto> contact = linkingService.saveOrUpdateContact(dto);
+        return ResponseEntity.status(HttpStatus.OK).body(contact);
     }
 
     @Override
