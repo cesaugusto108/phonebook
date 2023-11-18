@@ -11,4 +11,6 @@ public interface ContactLinkingService {
     EntityModel<ContactDto> findContactById(String id);
 
     EntityModel<ContactDto> saveOrUpdateContact(ContactDto dto);
+
+    PagedModel<EntityModel<ContactDto>> findContactsByNameContainingIgnoreCase(String name, int page, int size);
 }

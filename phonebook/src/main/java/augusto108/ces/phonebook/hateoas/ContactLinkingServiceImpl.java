@@ -51,4 +51,13 @@ public class ContactLinkingServiceImpl implements ContactLinkingService {
         contact.add(linkBuilder.slash(path).withRel("contacts"));
         return EntityModel.of(contact);
     }
+
+    @Override
+    public PagedModel<EntityModel<ContactDto>> findContactsByNameContainingIgnoreCase(String name, int page, int size) {
+        final String path = "/api/v1/contacts/";
+        final WebMvcLinkBuilder linkBuilder = linkTo(ContactController.class);
+        final Page<ContactDto> contacts = contactService.findContactsByNameContainingIgnoreCase(name, page, size);
+        contacts.forEach(contact -> contact.add(linkBuilder.slash(path + contact.getId()).withSelfRel()));
+        return assembler.toModel(contacts);
+    }
 }

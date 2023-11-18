@@ -162,4 +162,22 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                 .andExpect(jsonPath("$.message", is("No endpoint DELETE /api/v1/contacts/id/e8fd1a04-1c85-45e0-8f35-8ee8520e1800.")))
                 .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")));
     }
+
+    @Test
+    void findContactsByNameContainingIgnoreCase() throws Exception {
+        mockMvc.perform(get("/api/v1/contacts/name-search")
+                        .param("search", "peR")
+                        .param("page", "0")
+                        .param("size", "5"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/hal+json"))
+                .andExpect(jsonPath("$._embedded.contactDtoList[1].id", is("e8fd1a04-1c85-45e0-8f35-8ee8520e1800")))
+                .andExpect(jsonPath("$._embedded.contactDtoList[1].firstName", is("Robson")))
+                .andExpect(jsonPath("$._embedded.contactDtoList[1]._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1800")))
+                .andExpect(jsonPath("$._links.self.href", is("http://localhost/api/v1/contacts/name-search?page=0&size=5")))
+                .andExpect(jsonPath("$.page.size", is(5)))
+                .andExpect(jsonPath("$.page.totalElements", is(2)))
+                .andExpect(jsonPath("$.page.totalPages", is(1)))
+                .andExpect(jsonPath("$.page.number", is(0)));
+    }
 }

@@ -34,4 +34,12 @@ public interface ContactController {
     @Operation(summary = "delete contact")
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteContact(@PathVariable("id") String id);
+
+    @Operation(summary = "search contacts by name")
+    @GetMapping(value = "/name-search", produces = "application/hal+json")
+    ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByNameContainingIgnoreCase(
+            @RequestParam(defaultValue = "", required = false, name = "search") String name,
+            @RequestParam(defaultValue = "0", required = false, name = "page") int page,
+            @RequestParam(defaultValue = "10", required = false, name = "size") int size
+    );
 }

@@ -52,4 +52,13 @@ public class ContactControllerImpl implements ContactController {
         contactService.deleteContact(id);
         return ResponseEntity.noContent().build();
     }
+
+    @Override
+    public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByNameContainingIgnoreCase(String name,
+                                                                                                      int page,
+                                                                                                      int size) {
+        final PagedModel<EntityModel<ContactDto>> contacts =
+                linkingService.findContactsByNameContainingIgnoreCase(name, page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(contacts);
+    }
 }
