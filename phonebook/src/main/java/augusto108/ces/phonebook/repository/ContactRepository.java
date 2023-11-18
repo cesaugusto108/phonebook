@@ -14,6 +14,7 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
     @Query("from Contact c where " +
             "c.name.firstName like concat('%', :name, '%') or " +
             "c.name.middleName like concat('%', :name, '%') or " +
-            "c.name.lastName like concat('%', :name, '%')")
+            "c.name.lastName like concat('%', :name, '%') " +
+            "order by c.name.firstName")
     Page<Contact> findContactsByNameContainingIgnoreCase(@Param("name") String name, Pageable pageable);
 }
