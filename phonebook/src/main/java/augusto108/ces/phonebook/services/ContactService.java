@@ -12,4 +12,6 @@ public interface ContactService {
     ContactDto saveOrUpdateContact(ContactDto dto);
 
     void deleteContact(String id);
+
+    Page<ContactDto> findContactsByNameContainingIgnoreCase(String name, int page, int size);
 }

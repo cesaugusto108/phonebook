@@ -146,6 +146,25 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         assertThrows(NoResultException.class, () -> contactService.deleteContact("e8fd1a04-1d85-35e0-8f25-7ee0520e1818"));
     }
 
+    @Test
+    void findContactsByNameContainingIgnoreCase() {
+        final Page<ContactDto> contacts = contactService.findContactsByNameContainingIgnoreCase("peR", 0, 10);
+        final ContactDto robson = contacts.stream().toList().get(0);
+        final ContactDto alberto = contacts.stream().toList().get(1);
+        assertEquals(2, contacts.getTotalElements());
+        assertEquals("Robson", robson.getFirstName());
+        assertEquals("Alberto", alberto.getFirstName());
+        assertEquals(1, contacts.getTotalPages());
+        assertEquals("e8fd1a04-1c85-45e0-8f35-8ee8520e1800", robson.getId().toString());
+        assertEquals("Robson", robson.getFirstName());
+        assertEquals("Santos", robson.getMiddleName());
+        assertEquals("Pereira", robson.getLastName());
+        assertEquals("e8fd1a04-1c85-45e0-8f35-8ee8520e1803", alberto.getId().toString());
+        assertEquals("Alberto", alberto.getFirstName());
+        assertNull(alberto.getMiddleName());
+        assertEquals("Pereira", alberto.getLastName());
+    }
+
     private void findByInvalidId() {
         contactService.findContactById("e8fd1a04-1d85-35e0-8f25-7ee0520e1899");
     }

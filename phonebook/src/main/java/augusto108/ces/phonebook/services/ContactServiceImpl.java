@@ -65,4 +65,11 @@ public class ContactServiceImpl implements ContactService {
                 .orElseThrow(() -> new NoResultException("No result found for id: " + id));
         contactRepository.delete(contact);
     }
+
+    @Override
+    public Page<ContactDto> findContactsByNameContainingIgnoreCase(String name, int page, int size) {
+        final Page<Contact> contacts =
+                contactRepository.findContactsByNameContainingIgnoreCase(name, PageRequest.of(page, size));
+        return contacts.map(DtoMapper::fromContactToContactDto);
+    }
 }
