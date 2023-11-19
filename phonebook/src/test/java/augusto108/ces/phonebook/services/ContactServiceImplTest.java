@@ -153,8 +153,6 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         final ContactDto robson = contacts.stream().toList().get(1);
         assertEquals(2, contacts.getTotalElements());
         assertEquals(1, contacts.getTotalPages());
-        assertEquals("Alberto", alberto.getFirstName());
-        assertEquals("Robson", robson.getFirstName());
         assertEquals("e8fd1a04-1c85-45e0-8f35-8ee8520e1803", alberto.getId().toString());
         assertEquals("Alberto", alberto.getFirstName());
         assertNull(alberto.getMiddleName());
@@ -163,6 +161,18 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         assertEquals("Robson", robson.getFirstName());
         assertEquals("Santos", robson.getMiddleName());
         assertEquals("Pereira", robson.getLastName());
+    }
+
+    @Test
+    void findContactsByNoteContainsIgnoreCase() {
+        final Page<ContactDto> contacts = contactService.findContactsByNoteContainsIgnoreCase("sEmp", 0, 10);
+        final ContactDto angela = contacts.stream().toList().get(0);
+        assertEquals(1, contacts.getTotalElements());
+        assertEquals(1, contacts.getTotalPages());
+        assertEquals("e8fd1a04-1c85-45e0-8f35-8ee8520e1912", angela.getId().toString());
+        assertEquals("Ângela", angela.getFirstName());
+        assertEquals("Martins", angela.getMiddleName());
+        assertEquals("Silva", angela.getLastName());
     }
 
     private void findByInvalidId() {
