@@ -16,11 +16,23 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
             "c.name.middleName like concat('%', :text, '%') or " +
             "c.name.lastName like concat('%', :text, '%') " +
             "order by c.name.firstName")
-    Page<Contact> findContactsByNameContainsIgnoreCase(@Param("text") String name, Pageable pageable);
+    Page<Contact> findContactsByNameContainsIgnoreCase(@Param("text") String text, Pageable pageable);
 
     @Query("from Contact c where " +
             "c.note.note like concat('%', :text, '%') " +
             "order by c.name.firstName"
     )
     Page<Contact> findContactsByNoteContainsIgnoreCase(@Param("text") String text, Pageable pageable);
+
+    @Query(nativeQuery = true,
+            value = """
+                    select contact.*, email_username, email_domain
+                    from contact
+                             inner join contact_email on contact.id = contact_email.contact_id
+                             inner join email on contact_email.email_id = email.id
+                    where email.email_username like concat('%', :text, '%')
+                    or email.email_domain like concat('%', :text, '%')
+                    order by contact.first_name;"""
+    )
+    Page<Contact> findContactsByEmailsContainsIgnoreCase(@Param("text") String text, Pageable pageable);
 }
