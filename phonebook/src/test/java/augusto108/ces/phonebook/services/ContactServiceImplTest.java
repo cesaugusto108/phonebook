@@ -148,7 +148,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
 
     @Test
     void findContactsByNameContainingIgnoreCase() {
-        final Page<ContactDto> contacts = contactService.findContactsByNameContainingIgnoreCase("peR", 0, 10);
+        final Page<ContactDto> contacts = contactService.findContactsByNameContainsIgnoreCase("peR", 0, 10);
         final ContactDto alberto = contacts.stream().toList().get(0);
         final ContactDto robson = contacts.stream().toList().get(1);
         assertEquals(2, contacts.getTotalElements());

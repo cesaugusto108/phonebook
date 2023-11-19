@@ -67,9 +67,9 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Page<ContactDto> findContactsByNameContainingIgnoreCase(String name, int page, int size) {
+    public Page<ContactDto> findContactsByNameContainsIgnoreCase(String text, int page, int size) {
         final Page<Contact> contacts =
-                contactRepository.findContactsByNameContainsIgnoreCase(name, PageRequest.of(page, size));
+                contactRepository.findContactsByNameContainsIgnoreCase(text, PageRequest.of(page, size));
         return contacts.map(DtoMapper::fromContactToContactDto);
     }
 

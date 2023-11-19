@@ -53,10 +53,19 @@ public class ContactLinkingServiceImpl implements ContactLinkingService {
     }
 
     @Override
-    public PagedModel<EntityModel<ContactDto>> findContactsByNameContainingIgnoreCase(String name, int page, int size) {
+    public PagedModel<EntityModel<ContactDto>> findContactsByNameContainsIgnoreCase(String text, int page, int size) {
         final String path = "/api/v1/contacts/";
         final WebMvcLinkBuilder linkBuilder = linkTo(ContactController.class);
-        final Page<ContactDto> contacts = contactService.findContactsByNameContainingIgnoreCase(name, page, size);
+        final Page<ContactDto> contacts = contactService.findContactsByNameContainsIgnoreCase(text, page, size);
+        contacts.forEach(contact -> contact.add(linkBuilder.slash(path + contact.getId()).withSelfRel()));
+        return assembler.toModel(contacts);
+    }
+
+    @Override
+    public PagedModel<EntityModel<ContactDto>> findContactsByNoteContainsIgnoreCase(String text, int page, int size) {
+        final String path = "/api/v1/contacts/";
+        final WebMvcLinkBuilder linkBuilder = linkTo(ContactController.class);
+        final Page<ContactDto> contacts = contactService.findContactsByNoteContainsIgnoreCase(text, page, size);
         contacts.forEach(contact -> contact.add(linkBuilder.slash(path + contact.getId()).withSelfRel()));
         return assembler.toModel(contacts);
     }

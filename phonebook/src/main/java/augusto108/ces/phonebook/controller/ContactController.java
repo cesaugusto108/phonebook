@@ -38,7 +38,15 @@ public interface ContactController {
     @Operation(summary = "search contacts by name")
     @GetMapping(value = "/name-search", produces = "application/hal+json")
     ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByNameContainingIgnoreCase(
-            @RequestParam(defaultValue = "", required = false, name = "search") String name,
+            @RequestParam(defaultValue = "", required = false, name = "search") String text,
+            @RequestParam(defaultValue = "0", required = false, name = "page") int page,
+            @RequestParam(defaultValue = "10", required = false, name = "size") int size
+    );
+
+    @Operation(summary = "search contacts by note content")
+    @GetMapping(value = "/note-search", produces = "application/hal+json")
+    ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByNoteContainsIgnoreCase(
+            @RequestParam(defaultValue = "", required = false, name = "search") String text,
             @RequestParam(defaultValue = "0", required = false, name = "page") int page,
             @RequestParam(defaultValue = "10", required = false, name = "size") int size
     );

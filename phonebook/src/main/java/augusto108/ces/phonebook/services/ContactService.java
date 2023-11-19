@@ -13,7 +13,7 @@ public interface ContactService {
 
     void deleteContact(String id);
 
-    Page<ContactDto> findContactsByNameContainingIgnoreCase(String name, int page, int size);
+    Page<ContactDto> findContactsByNameContainsIgnoreCase(String text, int page, int size);
 
     Page<ContactDto> findContactsByNoteContainsIgnoreCase(String text, int page, int size);
 }
