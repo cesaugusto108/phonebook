@@ -191,6 +191,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                 .andExpect(content().contentType("application/hal+json"))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].id", is("e8fd1a04-1c85-45e0-8f35-8ee8520e1912")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].firstName", is("Ângela")))
+                .andExpect(jsonPath("$._embedded.contactDtoList[0].note", is("Tortor posuere ac ut consequat semper")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0]._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1912")))
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost/api/v1/contacts/note-search?page=0&size=5")))
                 .andExpect(jsonPath("$.page.size", is(5)))
