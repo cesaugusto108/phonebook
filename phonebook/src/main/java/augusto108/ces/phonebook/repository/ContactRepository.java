@@ -26,7 +26,7 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
 
     @Query(nativeQuery = true,
             value = """
-                    select contact.*, email_username, email_domain
+                    select contact.*
                     from contact
                              inner join contact_email on contact.id = contact_email.contact_id
                              inner join email on contact_email.email_id = email.id

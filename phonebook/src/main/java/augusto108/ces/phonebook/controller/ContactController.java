@@ -50,4 +50,12 @@ public interface ContactController {
             @RequestParam(defaultValue = "0", required = false, name = "page") int page,
             @RequestParam(defaultValue = "10", required = false, name = "size") int size
     );
+
+    @Operation(summary = "search contacts by email username or domain")
+    @GetMapping(value = "/email-search", produces = "application/hal+json")
+    ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByEmailContainsIgnoreCase(
+            @RequestParam(defaultValue = "", required = false, name = "search") String text,
+            @RequestParam(defaultValue = "0", required = false, name = "page") int page,
+            @RequestParam(defaultValue = "10", required = false, name = "size") int size
+    );
 }

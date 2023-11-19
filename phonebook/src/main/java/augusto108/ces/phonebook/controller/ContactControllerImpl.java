@@ -70,4 +70,13 @@ public class ContactControllerImpl implements ContactController {
                 linkingService.findContactsByNoteContainsIgnoreCase(text, page, size);
         return ResponseEntity.status(HttpStatus.OK).body(contacts);
     }
+
+    @Override
+    public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByEmailContainsIgnoreCase(String text,
+                                                                                                     int page,
+                                                                                                     int size) {
+        final PagedModel<EntityModel<ContactDto>> contacts =
+                linkingService.findContactsByEmailContainsIgnoreCase(text, page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(contacts);
+    }
 }
