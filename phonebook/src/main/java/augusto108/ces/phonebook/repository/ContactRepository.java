@@ -19,9 +19,13 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
     Page<Contact> findContactsByNameContainsIgnoreCase(@Param("text") String text, Pageable pageable);
 
     @Query("from Contact c where " +
+            "c.website like concat('%', :text, '%') " +
+            "order by c.name.firstName")
+    Page<Contact> findContactsByWebsiteContainsIgnoreCase(@Param("text") String text, Pageable pageable);
+
+    @Query("from Contact c where " +
             "c.note.note like concat('%', :text, '%') " +
-            "order by c.name.firstName"
-    )
+            "order by c.name.firstName")
     Page<Contact> findContactsByNoteContainsIgnoreCase(@Param("text") String text, Pageable pageable);
 
     @Query(nativeQuery = true,
@@ -32,7 +36,6 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
                              inner join email on contact_email.email_id = email.id
                     where email.email_username like concat('%', :text, '%')
                     or email.email_domain like concat('%', :text, '%')
-                    order by contact.first_name;"""
-    )
+                    order by contact.first_name;""")
     Page<Contact> findContactsByEmailsContainsIgnoreCase(@Param("text") String text, Pageable pageable);
 }
