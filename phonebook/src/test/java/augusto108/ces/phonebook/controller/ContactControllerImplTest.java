@@ -182,6 +182,24 @@ class ContactControllerImplTest extends TestContainersConfiguration {
     }
 
     @Test
+    void findContactsByWebsiteContainsIgnoreCase() throws Exception {
+        mockMvc.perform(get("/api/v1/contacts/website-search")
+                        .param("search", "dev4")
+                        .param("page", "0")
+                        .param("size", "5"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/hal+json"))
+                .andExpect(jsonPath("$._embedded.contactDtoList[0].id", is("e8fd1a04-1c85-45e0-8f35-8ee8520e1910")))
+                .andExpect(jsonPath("$._embedded.contactDtoList[0].firstName", is("Charles")))
+                .andExpect(jsonPath("$._embedded.contactDtoList[0]._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1910")))
+                .andExpect(jsonPath("$._links.self.href", is("http://localhost/api/v1/contacts/website-search?page=0&size=5")))
+                .andExpect(jsonPath("$.page.size", is(5)))
+                .andExpect(jsonPath("$.page.totalElements", is(1)))
+                .andExpect(jsonPath("$.page.totalPages", is(1)))
+                .andExpect(jsonPath("$.page.number", is(0)));
+    }
+
+    @Test
     void findContactsByNoteContainsIgnoreCase() throws Exception {
         mockMvc.perform(get("/api/v1/contacts/note-search")
                         .param("search", "sEmp")

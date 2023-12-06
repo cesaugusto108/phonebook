@@ -43,6 +43,14 @@ public interface ContactController {
             @RequestParam(defaultValue = "10", required = false, name = "size") int size
     );
 
+    @Operation(summary = "search contacts by website")
+    @GetMapping(value = "/website-search", produces = "application/hal+json")
+    ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByWebsiteContainsIgnoreCase(
+            @RequestParam(defaultValue = "", required = false, name = "search") String text,
+            @RequestParam(defaultValue = "0", required = false, name = "page") int page,
+            @RequestParam(defaultValue = "10", required = false, name = "size") int size
+    );
+
     @Operation(summary = "search contacts by note content")
     @GetMapping(value = "/note-search", produces = "application/hal+json")
     ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByNoteContainsIgnoreCase(
