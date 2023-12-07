@@ -20,5 +20,7 @@ public interface ContactLinkingService {
 
     PagedModel<EntityModel<ContactDto>> findContactsByTelephone(String number, int page, int size);
 
+    PagedModel<EntityModel<ContactDto>> findContactsByAddress(String text, int page, int size);
+
     PagedModel<EntityModel<ContactDto>> findContactsByEmailContainsIgnoreCase(String text, int page, int size);
 }

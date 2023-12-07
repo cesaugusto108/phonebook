@@ -57,6 +57,7 @@ public class ContactControllerImpl implements ContactController {
     public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByNameContainingIgnoreCase(String text,
                                                                                                       int page,
                                                                                                       int size) {
+
         final PagedModel<EntityModel<ContactDto>> contacts =
                 linkingService.findContactsByNameContainsIgnoreCase(text, page, size);
         return ResponseEntity.status(HttpStatus.OK).body(contacts);
@@ -66,6 +67,7 @@ public class ContactControllerImpl implements ContactController {
     public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByWebsiteContainsIgnoreCase(String text,
                                                                                                        int page,
                                                                                                        int size) {
+
         final PagedModel<EntityModel<ContactDto>> contacts =
                 linkingService.findContactsByWebsiteContainsIgnoreCase(text, page, size);
         return ResponseEntity.status(HttpStatus.OK).body(contacts);
@@ -75,6 +77,7 @@ public class ContactControllerImpl implements ContactController {
     public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByNoteContainsIgnoreCase(String text,
                                                                                                     int page,
                                                                                                     int size) {
+
         final PagedModel<EntityModel<ContactDto>> contacts =
                 linkingService.findContactsByNoteContainsIgnoreCase(text, page, size);
         return ResponseEntity.status(HttpStatus.OK).body(contacts);
@@ -84,8 +87,17 @@ public class ContactControllerImpl implements ContactController {
     public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByTelephone(String number,
                                                                                        int page,
                                                                                        int size) {
-        final PagedModel<EntityModel<ContactDto>> contacts =
-                linkingService.findContactsByTelephone(number, page, size);
+
+        final PagedModel<EntityModel<ContactDto>> contacts = linkingService.findContactsByTelephone(number, page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(contacts);
+    }
+
+    @Override
+    public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByAddress(String text,
+                                                                                     int page,
+                                                                                     int size) {
+
+        final PagedModel<EntityModel<ContactDto>> contacts = linkingService.findContactsByAddress(text, page, size);
         return ResponseEntity.status(HttpStatus.OK).body(contacts);
     }
 
@@ -93,6 +105,7 @@ public class ContactControllerImpl implements ContactController {
     public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByEmailContainsIgnoreCase(String text,
                                                                                                      int page,
                                                                                                      int size) {
+
         final PagedModel<EntityModel<ContactDto>> contacts =
                 linkingService.findContactsByEmailContainsIgnoreCase(text, page, size);
         return ResponseEntity.status(HttpStatus.OK).body(contacts);
