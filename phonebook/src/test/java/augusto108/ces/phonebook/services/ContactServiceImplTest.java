@@ -188,6 +188,18 @@ class ContactServiceImplTest extends TestContainersConfiguration {
     }
 
     @Test
+    void findContactsByTelephones() {
+        final Page<ContactDto> contacts = contactService.findContactsByTelephones("9833", 0, 10);
+        final ContactDto josefa = contacts.stream().toList().get(0);
+        assertEquals(1, contacts.getTotalElements());
+        assertEquals(1, contacts.getTotalPages());
+        assertEquals("e8fd1a04-1c85-45e0-8f35-8ee8520e1807", josefa.getId().toString());
+        assertEquals("Josefa", josefa.getFirstName());
+        assertEquals("Santos", josefa.getMiddleName());
+        assertEquals("Pires", josefa.getLastName());
+    }
+
+    @Test
     void findContactsByEmailsContainsIgnoreCase() {
         final Page<ContactDto> contacts = contactService.findContactsByEmailsContainsIgnoreCase("tH", 0, 10);
         final ContactDto ana = contacts.stream().toList().get(0);

@@ -32,10 +32,22 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
             value = """
                     select contact.*
                     from contact
-                             inner join contact_email on contact.id = contact_email.contact_id
-                             inner join email on contact_email.email_id = email.id
+                        inner join contact_telephone on contact.id = contact_telephone.contact_id
+                        inner join telephone on contact_telephone.telephone_id = telephone.id
+                    where telephone.country_code like concat('%', :number, '%')
+                        or telephone.area_code like concat('%', :number, '%')
+                        or telephone.number like concat('%', :number, '%')
+                    order by telephone.country_code;""")
+    Page<Contact> findContactsByTelephones(@Param("number") String number, Pageable pageable);
+
+    @Query(nativeQuery = true,
+            value = """
+                    select contact.*
+                    from contact
+                        inner join contact_email on contact.id = contact_email.contact_id
+                        inner join email on contact_email.email_id = email.id
                     where email.email_username like concat('%', :text, '%')
-                    or email.email_domain like concat('%', :text, '%')
+                        or email.email_domain like concat('%', :text, '%')
                     order by contact.first_name;""")
     Page<Contact> findContactsByEmailsContainsIgnoreCase(@Param("text") String text, Pageable pageable);
 }

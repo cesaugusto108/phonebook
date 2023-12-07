@@ -88,6 +88,12 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
+    public Page<ContactDto> findContactsByTelephones(String number, int page, int size) {
+        final Page<Contact> contacts = contactRepository.findContactsByTelephones(number, PageRequest.of(page, size));
+        return contacts.map(DtoMapper::fromContactToContactDto);
+    }
+
+    @Override
     public Page<ContactDto> findContactsByEmailsContainsIgnoreCase(String text, int page, int size) {
         final Page<Contact> contacts =
                 contactRepository.findContactsByEmailsContainsIgnoreCase(text, PageRequest.of(page, size));
