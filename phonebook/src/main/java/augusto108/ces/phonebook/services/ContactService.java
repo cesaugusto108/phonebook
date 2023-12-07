@@ -21,5 +21,7 @@ public interface ContactService {
 
     Page<ContactDto> findContactsByTelephone(String number, int page, int size);
 
+    Page<ContactDto> findContactsByAddress(String text, int page, int size);
+
     Page<ContactDto> findContactsByEmailsContainsIgnoreCase(String text, int page, int size);
 }

@@ -44,6 +44,23 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
             value = """
                     select contact.*
                     from contact
+                        inner join contact_address on contact.id = contact_address.contact_id
+                        inner join address on contact_address.address_id = address.id
+                    where address.city_name like concat('%', :text, '%')
+                        or address.complement like concat('%', :text, '%')
+                        or address.country_name like concat('%', :text, '%')
+                        or address.country_state like concat('%', :text, '%')
+                        or address.district like concat('%', :text, '%')
+                        or address.number like concat('%', :text, '%')
+                        or address.street like concat('%', :text, '%')
+                        or address.postal_code like concat('%', :text, '%')
+                    order by address.country_name;""")
+    Page<Contact> findContactsByAddress(@Param("text") String text, Pageable pageable);
+
+    @Query(nativeQuery = true,
+            value = """
+                    select contact.*
+                    from contact
                         inner join contact_email on contact.id = contact_email.contact_id
                         inner join email on contact_email.email_id = email.id
                     where email.email_username like concat('%', :text, '%')
