@@ -37,7 +37,7 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
                     where telephone.country_code like concat('%', :number, '%')
                         or telephone.area_code like concat('%', :number, '%')
                         or telephone.number like concat('%', :number, '%')
-                    order by telephone.country_code;""")
+                    order by telephone.number;""")
     Page<Contact> findContactsByTelephone(@Param("number") String number, Pageable pageable);
 
     @Query(nativeQuery = true,
