@@ -19,7 +19,7 @@ public interface ContactService {
 
     Page<ContactDto> findContactsByNoteContainsIgnoreCase(String text, int page, int size);
 
-    Page<ContactDto> findContactsByTelephones(String number, int page, int size);
+    Page<ContactDto> findContactsByTelephone(String number, int page, int size);
 
     Page<ContactDto> findContactsByEmailsContainsIgnoreCase(String text, int page, int size);
 }

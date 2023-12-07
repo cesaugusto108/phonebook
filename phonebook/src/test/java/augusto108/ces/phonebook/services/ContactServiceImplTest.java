@@ -188,8 +188,8 @@ class ContactServiceImplTest extends TestContainersConfiguration {
     }
 
     @Test
-    void findContactsByTelephones() {
-        final Page<ContactDto> contacts = contactService.findContactsByTelephones("9833", 0, 10);
+    void findContactsByTelephone() {
+        final Page<ContactDto> contacts = contactService.findContactsByTelephone("9833", 0, 10);
         final ContactDto josefa = contacts.stream().toList().get(0);
         assertEquals(1, contacts.getTotalElements());
         assertEquals(1, contacts.getTotalPages());

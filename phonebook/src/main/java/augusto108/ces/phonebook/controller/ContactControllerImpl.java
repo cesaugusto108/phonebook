@@ -81,6 +81,15 @@ public class ContactControllerImpl implements ContactController {
     }
 
     @Override
+    public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByTelephone(String number,
+                                                                                       int page,
+                                                                                       int size) {
+        final PagedModel<EntityModel<ContactDto>> contacts =
+                linkingService.findContactsByTelephone(number, page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(contacts);
+    }
+
+    @Override
     public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByEmailContainsIgnoreCase(String text,
                                                                                                      int page,
                                                                                                      int size) {
