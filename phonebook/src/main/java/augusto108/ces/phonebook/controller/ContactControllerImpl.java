@@ -84,20 +84,20 @@ public class ContactControllerImpl implements ContactController {
     }
 
     @Override
-    public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByTelephone(String number,
-                                                                                       int page,
-                                                                                       int size) {
+    public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByTelephoneContains(String number,
+                                                                                               int page,
+                                                                                               int size) {
 
-        final PagedModel<EntityModel<ContactDto>> contacts = linkingService.findContactsByTelephone(number, page, size);
+        final PagedModel<EntityModel<ContactDto>> contacts = linkingService.findContactsByTelephoneContains(number, page, size);
         return ResponseEntity.status(HttpStatus.OK).body(contacts);
     }
 
     @Override
-    public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByAddress(String text,
-                                                                                     int page,
-                                                                                     int size) {
+    public ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByAddressContainsIgnoreCase(String text,
+                                                                                                       int page,
+                                                                                                       int size) {
 
-        final PagedModel<EntityModel<ContactDto>> contacts = linkingService.findContactsByAddress(text, page, size);
+        final PagedModel<EntityModel<ContactDto>> contacts = linkingService.findContactsByAddressContainsIgnoreCase(text, page, size);
         return ResponseEntity.status(HttpStatus.OK).body(contacts);
     }
 

@@ -189,7 +189,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
 
     @Test
     void findContactsByTelephone() {
-        final Page<ContactDto> contacts = contactService.findContactsByTelephone("9833", 0, 10);
+        final Page<ContactDto> contacts = contactService.findContactsByTelephoneContains("9833", 0, 10);
         final ContactDto josefa = contacts.stream().toList().get(0);
         assertEquals(1, contacts.getTotalElements());
         assertEquals(1, contacts.getTotalPages());
@@ -201,7 +201,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
 
     @Test
     void findContactsByAddress() {
-        final Page<ContactDto> contacts = contactService.findContactsByAddress("sEnnA", 0, 10);
+        final Page<ContactDto> contacts = contactService.findContactsByAddressContainsIgnoreCase("sEnnA", 0, 10);
         final ContactDto alberto = contacts.stream().toList().get(0);
         assertEquals(1, contacts.getTotalElements());
         assertEquals(1, contacts.getTotalPages());
@@ -213,7 +213,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
 
     @Test
     void findContactsByEmailsContainsIgnoreCase() {
-        final Page<ContactDto> contacts = contactService.findContactsByEmailsContainsIgnoreCase("tH", 0, 10);
+        final Page<ContactDto> contacts = contactService.findContactsByEmailContainsIgnoreCase("tH", 0, 10);
         final ContactDto ana = contacts.stream().toList().get(0);
         assertEquals(4, contacts.getTotalElements());
         assertEquals(1, contacts.getTotalPages());

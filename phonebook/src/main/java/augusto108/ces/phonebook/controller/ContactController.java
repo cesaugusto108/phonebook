@@ -61,7 +61,7 @@ public interface ContactController {
 
     @Operation(summary = "search contacts by telephone country code, area code or number")
     @GetMapping(value = "/telephone-search", produces = "application/hal+json")
-    ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByTelephone(
+    ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByTelephoneContains(
             @RequestParam(defaultValue = "", required = false, name = "search") String number,
             @RequestParam(defaultValue = "0", required = false, name = "page") int page,
             @RequestParam(defaultValue = "10", required = false, name = "size") int size
@@ -69,7 +69,7 @@ public interface ContactController {
 
     @Operation(summary = "search contacts by address details")
     @GetMapping(value = "/address-search", produces = "application/hal+json")
-    ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByAddress(
+    ResponseEntity<PagedModel<EntityModel<ContactDto>>> findContactsByAddressContainsIgnoreCase(
             @RequestParam(defaultValue = "", required = false, name = "search") String text,
             @RequestParam(defaultValue = "0", required = false, name = "page") int page,
             @RequestParam(defaultValue = "10", required = false, name = "size") int size

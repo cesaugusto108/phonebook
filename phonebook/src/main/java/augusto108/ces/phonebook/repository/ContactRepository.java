@@ -38,7 +38,7 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
                         or telephone.area_code like concat('%', :number, '%')
                         or telephone.number like concat('%', :number, '%')
                     order by telephone.number;""")
-    Page<Contact> findContactsByTelephone(@Param("number") String number, Pageable pageable);
+    Page<Contact> findContactsByTelephoneContains(@Param("number") String number, Pageable pageable);
 
     @Query(nativeQuery = true,
             value = """
@@ -55,7 +55,7 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
                         or address.street like concat('%', :text, '%')
                         or address.postal_code like concat('%', :text, '%')
                     order by address.country_name;""")
-    Page<Contact> findContactsByAddress(@Param("text") String text, Pageable pageable);
+    Page<Contact> findContactsByAddressContainsIgnoreCase(@Param("text") String text, Pageable pageable);
 
     @Query(nativeQuery = true,
             value = """
@@ -66,5 +66,5 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
                     where email.email_username like concat('%', :text, '%')
                         or email.email_domain like concat('%', :text, '%')
                     order by contact.first_name;""")
-    Page<Contact> findContactsByEmailsContainsIgnoreCase(@Param("text") String text, Pageable pageable);
+    Page<Contact> findContactsByEmailContainsIgnoreCase(@Param("text") String text, Pageable pageable);
 }

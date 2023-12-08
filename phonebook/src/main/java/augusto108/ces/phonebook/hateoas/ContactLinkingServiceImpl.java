@@ -54,18 +54,18 @@ public class ContactLinkingServiceImpl implements ContactLinkingService {
     }
 
     @Override
-    public PagedModel<EntityModel<ContactDto>> findContactsByTelephone(String number, int page, int size) {
-        return assemblePagedModel(() -> contactService.findContactsByTelephone(number, page, size));
+    public PagedModel<EntityModel<ContactDto>> findContactsByTelephoneContains(String number, int page, int size) {
+        return assemblePagedModel(() -> contactService.findContactsByTelephoneContains(number, page, size));
     }
 
     @Override
-    public PagedModel<EntityModel<ContactDto>> findContactsByAddress(String text, int page, int size) {
-        return assemblePagedModel(() -> contactService.findContactsByAddress(text, page, size));
+    public PagedModel<EntityModel<ContactDto>> findContactsByAddressContainsIgnoreCase(String text, int page, int size) {
+        return assemblePagedModel(() -> contactService.findContactsByAddressContainsIgnoreCase(text, page, size));
     }
 
     @Override
     public PagedModel<EntityModel<ContactDto>> findContactsByEmailContainsIgnoreCase(String text, int page, int size) {
-        return assemblePagedModel(() -> contactService.findContactsByEmailsContainsIgnoreCase(text, page, size));
+        return assemblePagedModel(() -> contactService.findContactsByEmailContainsIgnoreCase(text, page, size));
     }
 
     private EntityModel<ContactDto> getEntityModel(ContactEntityFunctionalInterface contactEntityFunctionalInterface) {
