@@ -106,7 +106,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         assertEquals("e8fd1a04-1c85-45e0-8f35-8ee8520e1800", dto.getId().toString()); // checks id is the same
 
         dto.setFirstName("Joana");
-        dto = contactService.saveContact(dto);
+        dto = contactService.updateContact("e8fd1a04-1c85-45e0-8f35-8ee8520e1800", dto);
         assertEquals("Joana", dto.getFirstName()); // checks the obj returned from the method has name set before
 
         contact = contactRepository
@@ -118,7 +118,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         assertEquals(13, contacts.size()); // checks number of objs stays the same
 
         dto.setFirstName("Robson"); // sets objs name back to original
-        dto = contactService.saveContact(dto);
+        dto = contactService.updateContact("e8fd1a04-1c85-45e0-8f35-8ee8520e1800", dto);
         assertEquals("Robson", dto.getFirstName()); // checks the obj returned from the method has name set before
 
         contact = contactRepository
