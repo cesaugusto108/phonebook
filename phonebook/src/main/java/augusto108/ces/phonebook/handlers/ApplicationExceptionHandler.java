@@ -1,5 +1,6 @@
 package augusto108.ces.phonebook.handlers;
 
+import augusto108.ces.phonebook.exceptions.UnmatchedIdException;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.NoResultException;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,12 @@ public class ApplicationExceptionHandler {
     public ResponseEntity<ErrorResponse> handleNotFound(Exception e) {
         final ErrorResponse response = new ErrorResponse(e.getMessage(), HttpStatus.NOT_FOUND, Date.from(Instant.now()));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(UnmatchedIdException.class)
+    public ResponseEntity<ErrorResponse> handleUnmatchedId(UnmatchedIdException e) {
+        final ErrorResponse response = new ErrorResponse(e.getMessage(), HttpStatus.BAD_REQUEST, Date.from(Instant.now()));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
     public record ErrorResponse(

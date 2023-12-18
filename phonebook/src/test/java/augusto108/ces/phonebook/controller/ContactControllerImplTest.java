@@ -114,27 +114,44 @@ class ContactControllerImplTest extends TestContainersConfiguration {
         contact.setName(name);
         contact.setRelationship(Relationship.FRIEND);
 
-        mockMvc.perform(put("/api/v1/contacts")
+        mockMvc.perform(put("/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1801")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(DtoMapper.fromContactToContactDto(contact))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
                 .andExpect(jsonPath("$.firstName", is("Rebecca")))
                 .andExpect(jsonPath("$.relationship", is("FRIEND")))
+                .andExpect(jsonPath("$._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1801")))
                 .andExpect(jsonPath("$._links.contacts.href", is("http://localhost/api/v1/contacts")));
 
         name = new Name("Rebeca", "Alves", "Souza", "", "", "", "");
         contact.setName(name);
         contact.setRelationship(Relationship.PARTNER);
 
-        mockMvc.perform(put("/api/v1/contacts")
+        mockMvc.perform(put("/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1801")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(DtoMapper.fromContactToContactDto(contact))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
                 .andExpect(jsonPath("$.firstName", is("Rebeca")))
                 .andExpect(jsonPath("$.relationship", is("PARTNER")))
+                .andExpect(jsonPath("$._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1801")))
                 .andExpect(jsonPath("$._links.contacts.href", is("http://localhost/api/v1/contacts")));
+    }
+
+    @Test
+    void updateContactUnmatchedId() throws Exception {
+        final UUID id = UUID.fromString("e8fd1a04-1c85-45e0-8f35-8ee8520e1801");
+        Contact contact = contactRepository.findById(id).orElseThrow(NoResultException::new);
+
+        mockMvc.perform(put("/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1802")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(DtoMapper.fromContactToContactDto(contact))))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.message", is("ID in body does not match ID in URL")))
+                .andExpect(jsonPath("$.httpStatus", is("BAD_REQUEST")))
+                .andExpect(jsonPath("$.statusCode", is(400)));
     }
 
     @Test

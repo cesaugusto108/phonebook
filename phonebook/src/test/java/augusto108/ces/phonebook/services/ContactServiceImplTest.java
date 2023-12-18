@@ -89,7 +89,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         messenger.setImType(InstantMessengerType.INSTAGRAM);
         dto.getMessengers().add(messenger);
 
-        final ContactDto contact = contactService.saveOrUpdateContact(dto);
+        final ContactDto contact = contactService.saveContact(dto);
         final List<Contact> contacts = contactRepository.findAll();
         assertEquals(14, contacts.size());
         contactRepository.deleteById(contact.getId());
@@ -106,7 +106,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         assertEquals("e8fd1a04-1c85-45e0-8f35-8ee8520e1800", dto.getId().toString()); // checks id is the same
 
         dto.setFirstName("Joana");
-        dto = contactService.saveOrUpdateContact(dto);
+        dto = contactService.saveContact(dto);
         assertEquals("Joana", dto.getFirstName()); // checks the obj returned from the method has name set before
 
         contact = contactRepository
@@ -118,7 +118,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         assertEquals(13, contacts.size()); // checks number of objs stays the same
 
         dto.setFirstName("Robson"); // sets objs name back to original
-        dto = contactService.saveOrUpdateContact(dto);
+        dto = contactService.saveContact(dto);
         assertEquals("Robson", dto.getFirstName()); // checks the obj returned from the method has name set before
 
         contact = contactRepository

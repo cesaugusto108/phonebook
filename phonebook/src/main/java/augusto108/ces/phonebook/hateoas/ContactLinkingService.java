@@ -10,7 +10,9 @@ public interface ContactLinkingService {
 
     EntityModel<ContactDto> findContactById(String id);
 
-    EntityModel<ContactDto> saveOrUpdateContact(ContactDto dto);
+    EntityModel<ContactDto> saveContact(ContactDto dto);
+
+    EntityModel<ContactDto> updateContact(String id, ContactDto dto);
 
     PagedModel<EntityModel<ContactDto>> findContactsByNameContainsIgnoreCase(String text, int page, int size);
 

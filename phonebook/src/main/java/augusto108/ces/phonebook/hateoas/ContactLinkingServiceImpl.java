@@ -34,8 +34,13 @@ public class ContactLinkingServiceImpl implements ContactLinkingService {
     }
 
     @Override
-    public EntityModel<ContactDto> saveOrUpdateContact(ContactDto dto) {
-        return getEntityModel(() -> contactService.saveOrUpdateContact(dto));
+    public EntityModel<ContactDto> saveContact(ContactDto dto) {
+        return getEntityModel(() -> contactService.saveContact(dto));
+    }
+
+    @Override
+    public EntityModel<ContactDto> updateContact(String id, ContactDto dto) {
+        return getEntityModel(() -> contactService.updateContact(id, dto));
     }
 
     @Override

@@ -1,9 +1,9 @@
 package augusto108.ces.phonebook.controller;
 
+import augusto108.ces.phonebook.exceptions.UnmatchedIdException;
 import augusto108.ces.phonebook.hateoas.ContactLinkingService;
 import augusto108.ces.phonebook.model.dto.ContactDto;
 import augusto108.ces.phonebook.services.ContactService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
@@ -36,14 +36,15 @@ public class ContactControllerImpl implements ContactController {
     }
 
     @Override
-    public ResponseEntity<EntityModel<ContactDto>> saveContact(ContactDto dto, HttpServletRequest request) {
-        final EntityModel<ContactDto> contact = linkingService.saveOrUpdateContact(dto);
+    public ResponseEntity<EntityModel<ContactDto>> saveContact(ContactDto dto) {
+        final EntityModel<ContactDto> contact = linkingService.saveContact(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(contact);
     }
 
     @Override
-    public ResponseEntity<EntityModel<ContactDto>> updateContact(ContactDto dto, HttpServletRequest request) {
-        final EntityModel<ContactDto> contact = linkingService.saveOrUpdateContact(dto);
+    public ResponseEntity<EntityModel<ContactDto>> updateContact(String id, ContactDto dto) {
+        if (!id.equals(dto.getId().toString())) throw new UnmatchedIdException("ID in body does not match ID in URL");
+        final EntityModel<ContactDto> contact = linkingService.updateContact(id, dto);
         return ResponseEntity.status(HttpStatus.OK).body(contact);
     }
 

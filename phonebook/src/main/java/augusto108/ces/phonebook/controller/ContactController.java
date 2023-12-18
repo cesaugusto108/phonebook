@@ -3,7 +3,6 @@ package augusto108.ces.phonebook.controller;
 import augusto108.ces.phonebook.model.dto.ContactDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +24,11 @@ public interface ContactController {
 
     @Operation(summary = "save contact")
     @PostMapping(value = {""}, consumes = "application/json", produces = "application/hal+json")
-    ResponseEntity<EntityModel<ContactDto>> saveContact(@RequestBody ContactDto dto, HttpServletRequest request);
+    ResponseEntity<EntityModel<ContactDto>> saveContact(@RequestBody ContactDto dto);
 
     @Operation(summary = "update contact")
-    @PutMapping(value = {""}, consumes = "application/json", produces = "application/hal+json")
-    ResponseEntity<EntityModel<ContactDto>> updateContact(@RequestBody ContactDto dto, HttpServletRequest request);
+    @PutMapping(value = {"/{id}"}, consumes = "application/json", produces = "application/hal+json")
+    ResponseEntity<EntityModel<ContactDto>> updateContact(@PathVariable("id") String id, @RequestBody ContactDto dto);
 
     @Operation(summary = "delete contact")
     @DeleteMapping("/{id}")
