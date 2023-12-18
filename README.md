@@ -1,9 +1,9 @@
 # phonebook
 RESTful API built using Java/Spring. Functionalities inspired by the 'Contacts' app in /e/OS.
 
-Maven command: mvn spring-boot:run -Dspring-boot.run.arguments="--DB-PASSWORD=dbpassword --ACTIVE_PROFILE=chosenprofile"
+Maven command: `mvn spring-boot:run -Dspring-boot.run.arguments="--DB-PASSWORD=dbpassword --ACTIVE_PROFILE=chosenprofile"`
 
-Example usage (full api docs with Swagger (http://localhost:8880/phonebook/swagger-ui/index.html)):
+Example usage (full api docs with Swagger (`http://localhost:8880/phonebook/swagger-ui/index.html`)):
 ```
 $ curl http://localhost:8880/phonebook/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1801 | json_pp
 {
