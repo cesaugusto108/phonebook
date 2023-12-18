@@ -61,7 +61,8 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         assertNull(contact.getTitle());
         assertNull(contact.getWebsite());
         assertNull(contact.getNote());
-        assertThrows(NoResultException.class, this::findByInvalidId);
+        assertThrows(NoResultException.class, () -> contactService.deleteContact("e8fd1a04-1d85-35e0-8f25-7ee0520e1899"));
+        assertThrows(NumberFormatException.class, () -> contactService.findContactById("e8fd1a04-1c85-45e0-8f35-8ee8520e180z"));
     }
 
     @Test
@@ -144,6 +145,7 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         contacts = contactRepository.findAll();
         assertEquals(13, contacts.size());
         assertThrows(NoResultException.class, () -> contactService.deleteContact("e8fd1a04-1d85-35e0-8f25-7ee0520e1818"));
+        assertThrows(NumberFormatException.class, () -> contactService.findContactById("e8fd1a04-1c85-45e0-8f35-8ee8520e180z"));
     }
 
     @Test
@@ -221,9 +223,5 @@ class ContactServiceImplTest extends TestContainersConfiguration {
         assertEquals("Ana", ana.getFirstName());
         assertEquals("Santos", ana.getMiddleName());
         assertEquals("Silva", ana.getLastName());
-    }
-
-    private void findByInvalidId() {
-        contactService.findContactById("e8fd1a04-1d85-35e0-8f25-7ee0520e1899");
     }
 }

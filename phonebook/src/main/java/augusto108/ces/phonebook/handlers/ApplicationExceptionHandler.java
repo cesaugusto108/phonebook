@@ -1,10 +1,12 @@
 package augusto108.ces.phonebook.handlers;
 
+import augusto108.ces.phonebook.exceptions.UUIDNumberFormatException;
 import augusto108.ces.phonebook.exceptions.UnmatchedIdException;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.NoResultException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -21,8 +23,8 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
-    @ExceptionHandler(UnmatchedIdException.class)
-    public ResponseEntity<ErrorResponse> handleUnmatchedId(UnmatchedIdException e) {
+    @ExceptionHandler({UnmatchedIdException.class, UUIDNumberFormatException.class, HttpMessageNotReadableException.class})
+    public ResponseEntity<ErrorResponse> handleUnmatchedId(RuntimeException e) {
         final ErrorResponse response = new ErrorResponse(e.getMessage(), HttpStatus.BAD_REQUEST, Date.from(Instant.now()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }

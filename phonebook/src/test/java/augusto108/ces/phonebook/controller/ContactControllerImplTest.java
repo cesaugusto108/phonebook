@@ -73,13 +73,23 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.message", is("No result found for id: e8fd1a04-1c85-45e0-8f35-8ee8520e1825")))
-                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")));
+                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")))
+                .andExpect(jsonPath("$.statusCode", is(404)));
+
 
         mockMvc.perform(get("/api/v1/contacts/id/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e1800"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.message", is("No endpoint GET /api/v1/contacts/id/e8fd1a04-1c85-45e0-8f35-8ee8520e1800.")))
-                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")));
+                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")))
+                .andExpect(jsonPath("$.statusCode", is(404)));
+
+        mockMvc.perform(get("/api/v1/contacts/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e180z"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.message", is("Incorrect or malformed UUID string: Error at index 11 in: \"8ee8520e180z\"")))
+                .andExpect(jsonPath("$.httpStatus", is("BAD_REQUEST")))
+                .andExpect(jsonPath("$.statusCode", is(400)));
     }
 
     @Test
@@ -137,12 +147,6 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                 .andExpect(jsonPath("$.relationship", is("PARTNER")))
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1801")))
                 .andExpect(jsonPath("$._links.contacts.href", is("http://localhost/api/v1/contacts")));
-    }
-
-    @Test
-    void updateContactUnmatchedId() throws Exception {
-        final UUID id = UUID.fromString("e8fd1a04-1c85-45e0-8f35-8ee8520e1801");
-        Contact contact = contactRepository.findById(id).orElseThrow(NoResultException::new);
 
         mockMvc.perform(put("/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1802")
                         .contentType("application/json")
@@ -150,6 +154,15 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.message", is("ID in body does not match ID in URL")))
+                .andExpect(jsonPath("$.httpStatus", is("BAD_REQUEST")))
+                .andExpect(jsonPath("$.statusCode", is(400)));
+
+        mockMvc.perform(put("/api/v1/contacts/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e180z")
+                        .contentType("application/json")
+                        .content("{\"id\": \"e8fd1a04-1c85-45e0-8f35-8ee8520e180z\"}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.message", is("JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \"e8fd1a04-1c85-45e0-8f35-8ee8520e180z\": Non-hex character 'z' (value 0x7a), not valid for UUID String")))
                 .andExpect(jsonPath("$.httpStatus", is("BAD_REQUEST")))
                 .andExpect(jsonPath("$.statusCode", is(400)));
     }
@@ -171,13 +184,22 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.message", is("No result found for id: e8fd1a04-1c85-45e0-8f35-8ee8520e1825")))
-                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")));
+                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")))
+                .andExpect(jsonPath("$.statusCode", is(404)));
 
         mockMvc.perform(delete("/api/v1/contacts/id/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e1800"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.message", is("No endpoint DELETE /api/v1/contacts/id/e8fd1a04-1c85-45e0-8f35-8ee8520e1800.")))
-                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")));
+                .andExpect(jsonPath("$.httpStatus", is("NOT_FOUND")))
+                .andExpect(jsonPath("$.statusCode", is(404)));
+
+        mockMvc.perform(delete("/api/v1/contacts/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e180z"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.message", is("Incorrect or malformed UUID string: Error at index 11 in: \"8ee8520e180z\"")))
+                .andExpect(jsonPath("$.httpStatus", is("BAD_REQUEST")))
+                .andExpect(jsonPath("$.statusCode", is(400)));
     }
 
     @Test

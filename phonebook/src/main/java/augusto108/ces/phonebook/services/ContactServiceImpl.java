@@ -1,5 +1,6 @@
 package augusto108.ces.phonebook.services;
 
+import augusto108.ces.phonebook.exceptions.UUIDNumberFormatException;
 import augusto108.ces.phonebook.model.dto.ContactDto;
 import augusto108.ces.phonebook.model.entities.Contact;
 import augusto108.ces.phonebook.model.mapper.DtoMapper;
@@ -41,7 +42,12 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public ContactDto findContactById(String id) {
-        final UUID uuid = UUID.fromString(id);
+        final UUID uuid;
+        try {
+            uuid = UUID.fromString(id);
+        } catch (NumberFormatException e) {
+            throw new UUIDNumberFormatException("Incorrect or malformed UUID string: " + e.getMessage());
+        }
         final Contact contact = contactRepository
                 .findById(uuid)
                 .orElseThrow(() -> new NoResultException("No result found for id: " + id));
@@ -70,7 +76,12 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public void deleteContact(String id) {
-        final UUID uuid = UUID.fromString(id);
+        final UUID uuid;
+        try {
+            uuid = UUID.fromString(id);
+        } catch (NumberFormatException e) {
+            throw new UUIDNumberFormatException("Incorrect or malformed UUID string: " + e.getMessage());
+        }
         final Contact contact = contactRepository
                 .findById(uuid)
                 .orElseThrow(() -> new NoResultException("No result found for id: " + id));
