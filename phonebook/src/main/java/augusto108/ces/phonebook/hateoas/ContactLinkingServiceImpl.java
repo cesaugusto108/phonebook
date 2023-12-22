@@ -6,6 +6,7 @@ import augusto108.ces.phonebook.services.ContactService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
@@ -74,21 +75,16 @@ public class ContactLinkingServiceImpl implements ContactLinkingService {
     }
 
     private EntityModel<ContactDto> getEntityModel(ContactEntityFunctionalInterface contactEntityFunctionalInterface) {
-        final String path = "/api/v1/contacts/";
-        final WebMvcLinkBuilder linkBuilder = linkTo(ContactController.class);
         final ContactDto contact = contactEntityFunctionalInterface.getContact();
-        contact.add(linkBuilder.slash(path + contact.getId()).withSelfRel());
-        contact.add(linkBuilder.slash(path).withRel("contacts"));
+        final Link selfLink = linkTo(ContactController.class).slash(contact.getId()).withSelfRel();
+        final Link contactsLink = linkTo(ContactController.class).slash("").withRel("contacts");
+        contact.add(selfLink, contactsLink);
         return EntityModel.of(contact);
     }
 
-    private PagedModel<EntityModel<ContactDto>> assemblePagedModel(
-            ContactsPageFunctionalInterface contactsPageFunctionalInterface) {
-
-        final String path = "/api/v1/contacts/";
-        final WebMvcLinkBuilder linkBuilder = linkTo(ContactController.class);
+    private PagedModel<EntityModel<ContactDto>> assemblePagedModel(ContactsPageFunctionalInterface contactsPageFunctionalInterface) {
         final Page<ContactDto> contacts = contactsPageFunctionalInterface.findContacts();
-        contacts.forEach(contact -> contact.add(linkBuilder.slash(path + contact.getId()).withSelfRel()));
+        contacts.forEach(contact -> contact.add(linkTo(ContactController.class).slash(contact.getId()).withSelfRel()));
         return assembler.toModel(contacts);
     }
 

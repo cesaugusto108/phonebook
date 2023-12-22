@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Application endpoints", description = "Phonebook application endpoints")
+@RequestMapping("/api/v1/contacts")
 public interface ContactController {
 
     @Operation(summary = "get all contacts from database - default page = 0, default page size = 10")
