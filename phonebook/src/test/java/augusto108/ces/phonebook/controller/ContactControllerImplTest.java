@@ -19,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.UUID;
 
@@ -47,6 +48,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
         mockMvc.perform(get("/api/v1/contacts").param("page", "0").param("size", "5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
+                .andExpect(header().string("Used-HTTP-Method", "GET"))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].id", is("e8fd1a04-1c85-45e0-8f35-8ee8520e1800")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].firstName", is("Robson")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0]._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1800")))
@@ -63,6 +65,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
         mockMvc.perform(get("/api/v1/contacts/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e1800"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
+                .andExpect(header().string("Used-HTTP-Method", "GET"))
                 .andExpect(jsonPath("$.id", is("e8fd1a04-1c85-45e0-8f35-8ee8520e1800")))
                 .andExpect(jsonPath("$.firstName", is("Robson")))
                 .andExpect(jsonPath("$.messengers[0].username", is("@rthurnham0")))
@@ -105,15 +108,20 @@ class ContactControllerImplTest extends TestContainersConfiguration {
         email.setDomain("email.com");
         contact.getEmails().add(email);
 
-        mockMvc.perform(post("/api/v1/contacts")
+        MvcResult result = mockMvc.perform(post("/api/v1/contacts")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(contact)))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType("application/hal+json"))
+                .andExpect(header().string("Used-HTTP-Method", "POST"))
                 .andExpect(jsonPath("$.firstName", is("Samuel")))
                 .andExpect(jsonPath("$.telephones[0].number", is("999606060")))
                 .andExpect(jsonPath("$.emails[0].username", is("samuel")))
-                .andExpect(jsonPath("$._links.contacts.href", is("http://localhost/api/v1/contacts")));
+                .andExpect(jsonPath("$._links.contacts.href", is("http://localhost/api/v1/contacts")))
+                .andReturn();
+
+        final String id = result.getResponse().getContentAsString().substring(7, 43);
+        assertEquals(result.getResponse().getHeader("Location"), "http://localhost/api/v1/contacts/" + id);
     }
 
     @Test
@@ -129,6 +137,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                         .content(objectMapper.writeValueAsString(DtoMapper.fromContactToContactDto(contact))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
+                .andExpect(header().string("Used-HTTP-Method", "PUT"))
                 .andExpect(jsonPath("$.firstName", is("Rebecca")))
                 .andExpect(jsonPath("$.relationship", is("FRIEND")))
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1801")))
@@ -143,6 +152,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                         .content(objectMapper.writeValueAsString(DtoMapper.fromContactToContactDto(contact))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
+                .andExpect(header().string("Used-HTTP-Method", "PUT"))
                 .andExpect(jsonPath("$.firstName", is("Rebeca")))
                 .andExpect(jsonPath("$.relationship", is("PARTNER")))
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1801")))
@@ -176,7 +186,8 @@ class ContactControllerImplTest extends TestContainersConfiguration {
         assertEquals(14, contactRepository.findAll().size());
 
         mockMvc.perform(delete("/api/v1/contacts/{id}", id))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isNoContent())
+                .andExpect(header().string("Used-HTTP-Method", "DELETE"));
 
         assertEquals(13, contactRepository.findAll().size());
 
@@ -210,6 +221,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                         .param("size", "5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
+                .andExpect(header().string("Used-HTTP-Method", "GET"))
                 .andExpect(jsonPath("$._embedded.contactDtoList[1].id", is("e8fd1a04-1c85-45e0-8f35-8ee8520e1800")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[1].firstName", is("Robson")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[1]._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1800")))
@@ -228,6 +240,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                         .param("size", "5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
+                .andExpect(header().string("Used-HTTP-Method", "GET"))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].id", is("e8fd1a04-1c85-45e0-8f35-8ee8520e1910")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].firstName", is("Charles")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0]._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1910")))
@@ -246,6 +259,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                         .param("size", "5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
+                .andExpect(header().string("Used-HTTP-Method", "GET"))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].id", is("e8fd1a04-1c85-45e0-8f35-8ee8520e1912")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].firstName", is("Ângela")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].note", is("Tortor posuere ac ut consequat semper")))
@@ -265,6 +279,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                         .param("size", "5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
+                .andExpect(header().string("Used-HTTP-Method", "GET"))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].id", is("e8fd1a04-1c85-45e0-8f35-8ee8520e1807")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].firstName", is("Josefa")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].telephones.size()", is(2)))
@@ -284,6 +299,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                         .param("size", "5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
+                .andExpect(header().string("Used-HTTP-Method", "GET"))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].id", is("e8fd1a04-1c85-45e0-8f35-8ee8520e1803")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].firstName", is("Alberto")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].addresses[0].street", is("Ayrton Senna")))
@@ -303,6 +319,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
                         .param("size", "5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
+                .andExpect(header().string("Used-HTTP-Method", "GET"))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].id", is("e8fd1a04-1c85-45e0-8f35-8ee8520e1805")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0].firstName", is("Ana")))
                 .andExpect(jsonPath("$._embedded.contactDtoList[0]._links.self.href", is("http://localhost/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1805")))
