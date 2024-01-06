@@ -1,0 +1,30 @@
+services:
+  db:
+    image: mariadb:10.11.4
+    container_name: phonebook-db
+    command: [ "mysqld", "--default-authentication-plugin=mysql_native_password" ]
+    restart: on-failure
+    environment:
+      MARIADB_ROOT_PASSWORD: ${PASSWORD}
+      MARIADB_DATABASE: phonebook
+    expose: [ 3306 ]
+    networks: [ phonebook-network ]
+
+  phonebook-app:
+    image: phonebook
+    container_name: phonebook-app
+    depends_on: [ db ]
+    restart: on-failure
+    build: .
+    environment:
+      SPRING.DATASOURCE.URL: jdbc:mariadb://db:3306/phonebook?useTimezone=true&serverTimezone=UTC
+      SPRING.DATASOURCE.USERNAME: root
+      SPRING.DATASOURCE.PASSWORD: ${PASSWORD}
+      SPRING.PROFILES.ACTIVE: ${PROFILE}
+      SERVER.PORT: 80
+    ports: [ 8880:80 ]
+    networks: [ phonebook-network ]
+
+networks:
+  phonebook-network:
+    driver: bridge
