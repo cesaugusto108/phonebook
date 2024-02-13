@@ -8,7 +8,7 @@ import augusto108.ces.phonebook.model.dto.ContactDto;
 import augusto108.ces.phonebook.model.entities.*;
 import augusto108.ces.phonebook.model.enums.InstantMessengerType;
 import augusto108.ces.phonebook.model.mapper.DtoMapper;
-import augusto108.ces.phonebook.repository.ContactRepository;
+import augusto108.ces.phonebook.repositories.ContactRepository;
 import jakarta.persistence.NoResultException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -28,11 +28,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayNameGeneration(DisplayNameGenerator.Simple.class)
 class ContactServiceImplTest extends TestContainersConfiguration {
 
-    @Autowired
-    private ContactService contactService;
+    private final ContactService contactService;
+    private final ContactRepository contactRepository;
 
     @Autowired
-    private ContactRepository contactRepository;
+    ContactServiceImplTest(ContactService contactService, ContactRepository contactRepository) {
+        this.contactService = contactService;
+        this.contactRepository = contactRepository;
+    }
 
     @Test
     void findAllContacts() {

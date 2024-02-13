@@ -8,7 +8,7 @@ import augusto108.ces.phonebook.model.entities.Email;
 import augusto108.ces.phonebook.model.entities.Telephone;
 import augusto108.ces.phonebook.model.enums.Relationship;
 import augusto108.ces.phonebook.model.mapper.DtoMapper;
-import augusto108.ces.phonebook.repository.ContactRepository;
+import augusto108.ces.phonebook.repositories.ContactRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.NoResultException;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -34,14 +34,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayNameGeneration(DisplayNameGenerator.Simple.class)
 class ContactControllerImplTest extends TestContainersConfiguration {
 
-    @Autowired
-    private MockMvc mockMvc;
+    private final MockMvc mockMvc;
+    private final ObjectMapper objectMapper;
+    private final ContactRepository contactRepository;
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private ContactRepository contactRepository;
+    ContactControllerImplTest(MockMvc mockMvc, ObjectMapper objectMapper, ContactRepository contactRepository) {
+        this.mockMvc = mockMvc;
+        this.objectMapper = objectMapper;
+        this.contactRepository = contactRepository;
+    }
 
     @Test
     void findAllContacts() throws Exception {
