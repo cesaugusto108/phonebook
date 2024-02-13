@@ -5,6 +5,7 @@ import augusto108.ces.phonebook.hateoas.ContactLinkingService;
 import augusto108.ces.phonebook.model.dto.ContactDto;
 import augusto108.ces.phonebook.services.ContactService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class ContactControllerImpl implements ContactController {
     private final ContactLinkingService linkingService;
     private final ContactService contactService;
 
+    @Autowired
     public ContactControllerImpl(ContactLinkingService linkingService, ContactService contactService) {
         this.linkingService = linkingService;
         this.contactService = contactService;

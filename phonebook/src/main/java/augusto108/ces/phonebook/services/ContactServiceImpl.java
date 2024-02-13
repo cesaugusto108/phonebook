@@ -4,9 +4,10 @@ import augusto108.ces.phonebook.exceptions.UUIDNumberFormatException;
 import augusto108.ces.phonebook.model.dto.ContactDto;
 import augusto108.ces.phonebook.model.entities.Contact;
 import augusto108.ces.phonebook.model.mapper.DtoMapper;
-import augusto108.ces.phonebook.repository.*;
+import augusto108.ces.phonebook.repositories.*;
 import jakarta.persistence.NoResultException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class ContactServiceImpl implements ContactService {
     private final EmailRepository emailRepository;
     private final InstantMessengerRepository instantMessengerRepository;
 
+    @Autowired
     public ContactServiceImpl(ContactRepository contactRepository,
                               AddressRepository addressRepository,
                               TelephoneRepository telephoneRepository,

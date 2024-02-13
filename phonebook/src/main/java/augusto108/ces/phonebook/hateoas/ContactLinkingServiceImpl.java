@@ -3,6 +3,7 @@ package augusto108.ces.phonebook.hateoas;
 import augusto108.ces.phonebook.controller.ContactController;
 import augusto108.ces.phonebook.model.dto.ContactDto;
 import augusto108.ces.phonebook.services.ContactService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
@@ -18,6 +19,7 @@ public class ContactLinkingServiceImpl implements ContactLinkingService {
     private final ContactService contactService;
     private final PagedResourcesAssembler<ContactDto> assembler;
 
+    @Autowired
     public ContactLinkingServiceImpl(ContactService contactService, PagedResourcesAssembler<ContactDto> assembler) {
         this.contactService = contactService;
         this.assembler = assembler;
