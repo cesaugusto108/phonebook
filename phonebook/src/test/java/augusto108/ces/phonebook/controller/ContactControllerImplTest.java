@@ -124,6 +124,7 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 
         final String id = result.getResponse().getContentAsString().substring(7, 43);
         assertEquals(result.getResponse().getHeader("Location"), "http://localhost/api/v1/contacts/" + id);
+        contactRepository.deleteById(UUID.fromString(id));
     }
 
     @Test
