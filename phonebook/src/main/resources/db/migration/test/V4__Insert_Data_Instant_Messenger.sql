@@ -1,10 +1,10 @@
-insert into instant_messenger (id, im_username, im_type)
-values (1, 'rthurnham0', 'DISCORD');
-insert into instant_messenger (id, im_username, im_type)
-values (2, '@rthurnham0', 'INSTAGRAM');
-insert into instant_messenger (id, im_username, im_type)
-values (3, 'llsil', 'DISCORD');
-insert into instant_messenger (id, im_username, im_type)
-values (4, 'procod', 'DISCORD');
-insert into instant_messenger (id, im_username, im_type)
-values (5, 'mmservuser', 'SKYPE');
+INSERT INTO instant_messenger (id, im_username, im_type)
+VALUES (1, 'rthurnham0', 'DISCORD');
+INSERT INTO instant_messenger (id, im_username, im_type)
+VALUES (2, '@rthurnham0', 'INSTAGRAM');
+INSERT INTO instant_messenger (id, im_username, im_type)
+VALUES (3, 'llsil', 'DISCORD');
+INSERT INTO instant_messenger (id, im_username, im_type)
+VALUES (4, 'procod', 'DISCORD');
+INSERT INTO instant_messenger (id, im_username, im_type)
+VALUES (5, 'mmservuser', 'SKYPE');

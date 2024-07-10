@@ -1,4 +1,4 @@
-package augusto108.ces.phonebook.repositories;
+package augusto108.ces.phonebook.model.repositories;
 
 import augusto108.ces.phonebook.model.entities.InstantMessenger;
 import org.springframework.data.jpa.repository.JpaRepository;

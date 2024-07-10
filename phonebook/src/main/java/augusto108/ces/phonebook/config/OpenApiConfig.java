@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfig {
 
-    @Bean
-    public OpenAPI openAPIConfig() {
-        return new OpenAPI().info(new Info().title("Phonebook").description("Phonebook application").version("v1"));
-    }
+	@Bean
+	public OpenAPI openAPIConfig() {
+		return new OpenAPI().info(new Info().title("Phonebook").description("Phonebook application").version("v1"));
+	}
 }

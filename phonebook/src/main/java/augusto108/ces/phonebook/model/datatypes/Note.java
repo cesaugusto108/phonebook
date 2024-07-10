@@ -6,7 +6,7 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public record Note(@Column(name = "note") String note) {
 
-    public Note() {
-        this("");
-    }
+	public Note() {
+		this("");
+	}
 }

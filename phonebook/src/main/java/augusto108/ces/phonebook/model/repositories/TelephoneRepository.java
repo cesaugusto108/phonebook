@@ -1,4 +1,4 @@
-package augusto108.ces.phonebook.repositories;
+package augusto108.ces.phonebook.model.repositories;
 
 import augusto108.ces.phonebook.model.entities.Telephone;
 import org.springframework.data.jpa.repository.JpaRepository;

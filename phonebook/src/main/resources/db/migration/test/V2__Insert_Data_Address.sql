@@ -1,30 +1,30 @@
-insert into address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
+INSERT INTO address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
                      address_type)
-values (1, 'Castelo Branco', '319', 'Apt 102', null, '70240-098', 'São Pedro', 'Minas Gerais', 'Brasil', 'HOME');
-insert into address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
+VALUES (1, 'Castelo Branco', '319', 'Apt 102', NULL, '70240-098', 'São Pedro', 'Minas Gerais', 'Brasil', 'HOME');
+INSERT INTO address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
                      address_type)
-values (2, 'Porto da Folha', '39', null, null, null, 'Aracaju', 'Sergipe', 'Brasil', 'HOME');
-insert into address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
+VALUES (2, 'Porto da Folha', '39', NULL, NULL, NULL, 'Aracaju', 'Sergipe', 'Brasil', 'HOME');
+INSERT INTO address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
                      address_type)
-values (3, 'Ulisses Guimarães', '215', null, null, null, 'Rio Janeiro', 'Rio Janeiro', 'Brasil', 'WORK');
-insert into address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
+VALUES (3, 'Ulisses Guimarães', '215', NULL, NULL, NULL, 'Rio Janeiro', 'Rio Janeiro', 'Brasil', 'WORK');
+INSERT INTO address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
                      address_type)
-values (4, 'Ayrton Senna', '31', 'Apt 101', null, null, 'Uberlândia', 'Minas Gerais', 'Brasil', 'HOME');
-insert into address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
+VALUES (4, 'Ayrton Senna', '31', 'Apt 101', NULL, NULL, 'Uberlândia', 'Minas Gerais', 'Brasil', 'HOME');
+INSERT INTO address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
                      address_type)
-values (5, 'Dep. Fernando Rocha', '2219', 'Apt 505', null, null, 'São Pedro', 'Minas Gerais', 'Brasil', 'HOME');
-insert into address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
+VALUES (5, 'Dep. Fernando Rocha', '2219', 'Apt 505', NULL, NULL, 'São Pedro', 'Minas Gerais', 'Brasil', 'HOME');
+INSERT INTO address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
                      address_type)
-values (6, 'Boquim', '59', null, null, '49240-098', 'Aracaju', 'Sergipe', 'Brasil', 'HOME');
-insert into address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
+VALUES (6, 'Boquim', '59', NULL, NULL, '49240-098', 'Aracaju', 'Sergipe', 'Brasil', 'HOME');
+INSERT INTO address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
                      address_type)
-values (7, 'Castelo Branco', '449', null, null, '70240-098', 'São Pedro', 'Minas Gerais', 'Brasil', 'WORK');
-insert into address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
+VALUES (7, 'Castelo Branco', '449', NULL, NULL, '70240-098', 'São Pedro', 'Minas Gerais', 'Brasil', 'WORK');
+INSERT INTO address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
                      address_type)
-values (8, 'João Figueiredo', '3122', null, null, '30240-098', 'Porto Alegre', 'Rio Grande do Sul', 'Brasil', null);
-insert into address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
+VALUES (8, 'João Figueiredo', '3122', NULL, NULL, '30240-098', 'Porto Alegre', 'Rio Grande do Sul', 'Brasil', NULL);
+INSERT INTO address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
                      address_type)
-values (9, 'Main', '1449', null, null, null, 'Santa Monica', 'California', 'United States', 'OTHER');
-insert into address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
+VALUES (9, 'Main', '1449', NULL, NULL, NULL, 'Santa Monica', 'California', 'United States', 'OTHER');
+INSERT INTO address (id, street, number, complement, district, postal_code, city_name, country_state, country_name,
                      address_type)
-values (10, 'Sunset', '3244', null, null, null, 'San Diego', 'California', 'United States', 'WORK');
+VALUES (10, 'Sunset', '3244', NULL, NULL, NULL, 'San Diego', 'California', 'United States', 'WORK');

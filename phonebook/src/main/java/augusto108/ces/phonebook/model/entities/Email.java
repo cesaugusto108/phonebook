@@ -10,37 +10,37 @@ import jakarta.persistence.*;
 @JsonIgnoreProperties(value = {"id"})
 public class Email extends BaseId {
 
-    @Column(name = "email_username", nullable = false, length = 30)
-    private String username;
+	@Column(name = "email_username", nullable = false, length = 30)
+	private String username;
 
-    @Column(name = "email_domain", nullable = false, length = 30)
-    private String domain;
+	@Column(name = "email_domain", nullable = false, length = 30)
+	private String domain;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "email_type", length = 15)
-    private EmailType emailType;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "email_type", length = 15)
+	private EmailType emailType;
 
-    public String getUsername() {
-        return username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getDomain() {
-        return domain;
-    }
+	public String getDomain() {
+		return domain;
+	}
 
-    public void setDomain(String domain) {
-        this.domain = domain;
-    }
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 
-    public EmailType getEmailType() {
-        return emailType;
-    }
+	public EmailType getEmailType() {
+		return emailType;
+	}
 
-    public void setEmailType(EmailType emailType) {
-        this.emailType = emailType;
-    }
+	public void setEmailType(EmailType emailType) {
+		this.emailType = emailType;
+	}
 }

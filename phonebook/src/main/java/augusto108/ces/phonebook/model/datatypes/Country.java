@@ -6,7 +6,7 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public record Country(@Column(name = "country_name", length = 40) String name) {
 
-    public Country() {
-        this("");
-    }
+	public Country() {
+		this("");
+	}
 }

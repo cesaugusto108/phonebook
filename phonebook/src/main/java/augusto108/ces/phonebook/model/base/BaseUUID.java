@@ -10,17 +10,17 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class BaseUUID extends RepresentationModel<BaseUUID> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false, unique = true, columnDefinition = "char(36)")
-    @JdbcTypeCode(SqlTypes.CHAR)
-    private UUID id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id", nullable = false, unique = true, columnDefinition = "char(36)")
+	@JdbcTypeCode(SqlTypes.CHAR)
+	private UUID id;
 
-    public UUID getId() {
-        return id;
-    }
+	public UUID getId() {
+		return id;
+	}
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+	public void setId(UUID id) {
+		this.id = id;
+	}
 }
