@@ -1,7 +1,7 @@
 # phonebook
 RESTful API built using Java/Spring. Functionalities inspired by the 'Contacts' app in /e/OS.
 
-Gradle command: `./gradlew bootRun --args='--USERNAME=root --PASSWORD=1234 --DB-HOST=localhost --DB-PORT=3306 --ACTIVE_PROFILE=dev --SERVER-PORT=9999'`
+Gradle EXAMPLE command: `./gradlew bootRun --args='--USERNAME=admin --PASSWORD=123456 --DB-HOST=localhost --DB-PORT=3306 --ACTIVE_PROFILE=dev --SERVER-PORT=9999'`
 
 Example usage (full api docs with Swagger (`http://localhost:8880/phonebook/swagger-ui/index.html`)):
 ```
