@@ -8,7 +8,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "instant_messenger")
 @JsonIgnoreProperties(value = {"id"})
-public class InstantMessenger extends BaseId {
+public class InstantMessenger extends BaseId
+{
 
 	@Column(name = "im_username", nullable = false, length = 20)
 	private String username;
@@ -17,19 +18,23 @@ public class InstantMessenger extends BaseId {
 	@Column(name = "im_type", nullable = false, length = 15)
 	private InstantMessengerType imType;
 
-	public String getUsername() {
+	public String getUsername()
+	{
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(String username)
+	{
 		this.username = username;
 	}
 
-	public InstantMessengerType getImType() {
+	public InstantMessengerType getImType()
+	{
 		return imType;
 	}
 
-	public void setImType(InstantMessengerType imType) {
+	public void setImType(InstantMessengerType imType)
+	{
 		this.imType = imType;
 	}
 }

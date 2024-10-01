@@ -13,15 +13,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ContextConfiguration(initializers = {TestContainersConfiguration.Initializer.class})
-public class TestContainersConfiguration {
+public class TestContainersConfiguration
+{
 
 	private static final MariaDBContainer<?> MARIA_DB_CONTAINER = new MariaDBContainer<>("mariadb:10.11.4");
 
-	private static void startContainer() {
+	private static void startContainer()
+	{
 		Startables.deepStart(MARIA_DB_CONTAINER).join();
 	}
 
-	private static Map<String, Object> createTestContainersConnectionConfiguration() {
+	private static Map<String, Object> createTestContainersConnectionConfiguration()
+	{
 		final Map<String, Object> map = new HashMap<>();
 		map.put("spring.datasource.url", MARIA_DB_CONTAINER.getJdbcUrl());
 		map.put("spring.datasource.username", MARIA_DB_CONTAINER.getUsername());
@@ -29,10 +32,11 @@ public class TestContainersConfiguration {
 		return map;
 	}
 
-	static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+	static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext>
+	{
 
-		@Override
-		public void initialize(ConfigurableApplicationContext applicationContext) {
+		@Override public void initialize(ConfigurableApplicationContext applicationContext)
+		{
 			startContainer();
 
 			final ConfigurableEnvironment configurableEnvironment = applicationContext.getEnvironment();

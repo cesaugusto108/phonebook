@@ -17,12 +17,13 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(DisplayNameGenerator.Simple.class)
-public class ToContactTest {
+public class ToContactTest
+{
 
 	private static ContactDto dto;
 
-	@BeforeAll
-	static void setUp() {
+	@BeforeAll static void setUp()
+	{
 		dto = new ContactDto();
 		final Date date = getDate();
 		final Telephone telephone = getTelephone();
@@ -32,13 +33,15 @@ public class ToContactTest {
 		setUpContactDto(date, telephone, address, email, messenger);
 	}
 
-	private static Date getDate() {
+	private static Date getDate()
+	{
 		final Calendar calendar = Calendar.getInstance();
 		calendar.set(1991, Calendar.OCTOBER, 1);
 		return calendar.getTime();
 	}
 
-	private static Telephone getTelephone() {
+	private static Telephone getTelephone()
+	{
 		final Telephone telephone = new Telephone();
 		telephone.setCountryCode("55");
 		telephone.setAreaCode("79");
@@ -48,7 +51,8 @@ public class ToContactTest {
 		return telephone;
 	}
 
-	private static Address getAddress() {
+	private static Address getAddress()
+	{
 		final Address address = new Address();
 		final Country country = new Country("Brasil");
 		final City city = new City("Aracaju", "Sergipe", country);
@@ -63,7 +67,8 @@ public class ToContactTest {
 		return address;
 	}
 
-	private static Email getEmail() {
+	private static Email getEmail()
+	{
 		final Email email = new Email();
 		email.setUsername("fernanda");
 		email.setDomain("email.com");
@@ -72,7 +77,8 @@ public class ToContactTest {
 		return email;
 	}
 
-	private static InstantMessenger getMessenger() {
+	private static InstantMessenger getMessenger()
+	{
 		final InstantMessenger messenger = new InstantMessenger();
 		messenger.setUsername("fsantos");
 		messenger.setImType(InstantMessengerType.OTHER);
@@ -81,10 +87,11 @@ public class ToContactTest {
 	}
 
 	private static void setUpContactDto(Date date,
-										Telephone telephone,
-										Address address,
-										Email email,
-										InstantMessenger messenger) {
+					    Telephone telephone,
+					    Address address,
+					    Email email,
+					    InstantMessenger messenger)
+	{
 		dto.setFirstName("Fernanda");
 		dto.setMiddleName("Santos");
 		dto.setLastName("Sá");
@@ -105,8 +112,8 @@ public class ToContactTest {
 		dto.getMessengers().add(messenger);
 	}
 
-	@Test
-	void fromContactDtoToContact() {
+	@Test void fromContactDtoToContact()
+	{
 		final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		final Contact contact = DtoMapper.fromContactDtoToContact(dto);
 		testNonCollectionFields(contact, simpleDateFormat);
@@ -116,7 +123,8 @@ public class ToContactTest {
 		testMessengers(contact);
 	}
 
-	private static void testNonCollectionFields(Contact contact, SimpleDateFormat simpleDateFormat) {
+	private static void testNonCollectionFields(Contact contact, SimpleDateFormat simpleDateFormat)
+	{
 		assertEquals("Fernanda", contact.getName().firstName());
 		assertEquals("Santos", contact.getName().middleName());
 		assertEquals("Sá", contact.getName().lastName());
@@ -132,7 +140,8 @@ public class ToContactTest {
 		assertEquals("Lorem ipsum", contact.getNote().note());
 	}
 
-	private static void testTelephones(Contact contact) {
+	private static void testTelephones(Contact contact)
+	{
 		final Telephone telephone = contact.getTelephones().stream().toList().get(0);
 		final String countryCode = telephone.getCountryCode();
 		final String areaCode = telephone.getAreaCode();
@@ -144,7 +153,8 @@ public class ToContactTest {
 		assertEquals(10, telephone.getId());
 	}
 
-	private static void testAddresses(Contact contact) {
+	private static void testAddresses(Contact contact)
+	{
 		final Address address = contact.getAddresses().stream().toList().get(0);
 		final String street = address.getStreet();
 		final String number = address.getNumber();
@@ -163,7 +173,8 @@ public class ToContactTest {
 		assertEquals(14, address.getId());
 	}
 
-	private static void testEmails(Contact contact) {
+	private static void testEmails(Contact contact)
+	{
 		final Email email = contact.getEmails().stream().toList().get(0);
 		final String username = email.getUsername();
 		final String domain = email.getDomain();
@@ -174,7 +185,8 @@ public class ToContactTest {
 		assertEquals(18, email.getId());
 	}
 
-	private static void testMessengers(Contact contact) {
+	private static void testMessengers(Contact contact)
+	{
 		final InstantMessenger messenger = contact.getMessengers().stream().toList().get(0);
 		final String username = messenger.getUsername();
 		final String imType = messenger.getImType().toString();

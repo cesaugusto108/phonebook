@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
-@Repository
-public interface ContactRepository extends JpaRepository<Contact, UUID> {
+@Repository public interface ContactRepository extends JpaRepository<Contact, UUID>
+{
 
 	@Query("from Contact c where " +
 			"c.name.firstName like concat('%', :text, '%') or " +
@@ -32,41 +32,41 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
 
 	@Query(nativeQuery = true,
 			value = """
-					select contact.*
-					from contact
-					    inner join contact_telephone on contact.id = contact_telephone.contact_id
-					    inner join telephone on contact_telephone.telephone_id = telephone.id
-					where telephone.country_code like concat('%', :number, '%')
-					    or telephone.area_code like concat('%', :number, '%')
-					    or telephone.number like concat('%', :number, '%')
-					order by telephone.number;""")
+					SELECT contact.*
+					FROM contact
+					    INNER JOIN contact_telephone ON contact.id = contact_telephone.contact_id
+					    INNER JOIN telephone ON contact_telephone.telephone_id = telephone.id
+					WHERE telephone.country_code LIKE CONCAT('%', :number, '%')
+					    OR telephone.area_code LIKE CONCAT('%', :number, '%')
+					    OR telephone.number LIKE CONCAT('%', :number, '%')
+					ORDER BY telephone.number;""")
 	Page<Contact> findContactsByTelephoneContains(@Param("number") String number, Pageable pageable);
 
 	@Query(nativeQuery = true,
 			value = """
-					select contact.*
-					from contact
-					    inner join contact_address on contact.id = contact_address.contact_id
-					    inner join address on contact_address.address_id = address.id
-					where address.city_name like concat('%', :text, '%')
-					    or address.complement like concat('%', :text, '%')
-					    or address.country_name like concat('%', :text, '%')
-					    or address.country_state like concat('%', :text, '%')
-					    or address.district like concat('%', :text, '%')
-					    or address.number like concat('%', :text, '%')
-					    or address.street like concat('%', :text, '%')
-					    or address.postal_code like concat('%', :text, '%')
-					order by address.country_name;""")
+					SELECT contact.*
+					FROM contact
+					    INNER JOIN contact_address ON contact.id = contact_address.contact_id
+					    INNER JOIN address ON contact_address.address_id = address.id
+					WHERE address.city_name LIKE CONCAT('%', :text, '%')
+					    OR address.complement LIKE CONCAT('%', :text, '%')
+					    OR address.country_name LIKE CONCAT('%', :text, '%')
+					    OR address.country_state LIKE CONCAT('%', :text, '%')
+					    OR address.district LIKE CONCAT('%', :text, '%')
+					    OR address.number LIKE CONCAT('%', :text, '%')
+					    OR address.street LIKE CONCAT('%', :text, '%')
+					    OR address.postal_code LIKE CONCAT('%', :text, '%')
+					ORDER BY address.country_name;""")
 	Page<Contact> findContactsByAddressContainsIgnoreCase(@Param("text") String text, Pageable pageable);
 
 	@Query(nativeQuery = true,
 			value = """
-					select contact.*
-					from contact
-					    inner join contact_email on contact.id = contact_email.contact_id
-					    inner join email on contact_email.email_id = email.id
-					where email.email_username like concat('%', :text, '%')
-					    or email.email_domain like concat('%', :text, '%')
-					order by contact.first_name;""")
+					SELECT contact.*
+					FROM contact
+					    INNER JOIN contact_email ON contact.id = contact_email.contact_id
+					    INNER JOIN email ON contact_email.email_id = email.id
+					WHERE email.email_username LIKE CONCAT('%', :text, '%')
+					    OR email.email_domain LIKE CONCAT('%', :text, '%')
+					ORDER BY contact.first_name;""")
 	Page<Contact> findContactsByEmailContainsIgnoreCase(@Param("text") String text, Pageable pageable);
 }

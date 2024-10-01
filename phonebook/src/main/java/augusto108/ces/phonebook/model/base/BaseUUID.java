@@ -7,8 +7,8 @@ import org.springframework.hateoas.RepresentationModel;
 
 import java.util.UUID;
 
-@MappedSuperclass
-public abstract class BaseUUID extends RepresentationModel<BaseUUID> {
+@MappedSuperclass public abstract class BaseUUID extends RepresentationModel<BaseUUID>
+{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
@@ -16,11 +16,13 @@ public abstract class BaseUUID extends RepresentationModel<BaseUUID> {
 	@JdbcTypeCode(SqlTypes.CHAR)
 	private UUID id;
 
-	public UUID getId() {
+	public UUID getId()
+	{
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(UUID id)
+	{
 		this.id = id;
 	}
 }

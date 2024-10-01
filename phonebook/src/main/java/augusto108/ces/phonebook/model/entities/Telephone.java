@@ -8,7 +8,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "telephone")
 @JsonIgnoreProperties(value = {"id"})
-public class Telephone extends BaseId {
+public class Telephone extends BaseId
+{
 
 	@Column(name = "country_code", length = 3)
 	private String countryCode;
@@ -23,35 +24,43 @@ public class Telephone extends BaseId {
 	@Column(name = "telephone_type", length = 15)
 	private TelephoneType telephoneType;
 
-	public String getCountryCode() {
+	public String getCountryCode()
+	{
 		return countryCode;
 	}
 
-	public void setCountryCode(String countryCode) {
+	public void setCountryCode(String countryCode)
+	{
 		this.countryCode = countryCode;
 	}
 
-	public String getAreaCode() {
+	public String getAreaCode()
+	{
 		return areaCode;
 	}
 
-	public void setAreaCode(String areaCode) {
+	public void setAreaCode(String areaCode)
+	{
 		this.areaCode = areaCode;
 	}
 
-	public String getNumber() {
+	public String getNumber()
+	{
 		return number;
 	}
 
-	public void setNumber(String number) {
+	public void setNumber(String number)
+	{
 		this.number = number;
 	}
 
-	public TelephoneType getTelephoneType() {
+	public TelephoneType getTelephoneType()
+	{
 		return telephoneType;
 	}
 
-	public void setTelephoneType(TelephoneType telephoneType) {
+	public void setTelephoneType(TelephoneType telephoneType)
+	{
 		this.telephoneType = telephoneType;
 	}
 }

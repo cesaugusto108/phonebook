@@ -2,19 +2,21 @@ package augusto108.ces.phonebook.model.base;
 
 import jakarta.persistence.*;
 
-@MappedSuperclass
-public abstract class BaseId {
+@MappedSuperclass public abstract class BaseId
+{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
 
-	public Integer getId() {
+	public Integer getId()
+	{
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Integer id)
+	{
 		this.id = id;
 	}
 }

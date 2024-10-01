@@ -32,20 +32,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @DisplayNameGeneration(DisplayNameGenerator.Simple.class)
-class ContactControllerImplTest extends TestContainersConfiguration {
+class ContactControllerImplTest extends TestContainersConfiguration
+{
 
 	private final MockMvc mockMvc;
 	private final ObjectMapper objectMapper;
 	private final ContactRepository contactRepository;
 
-	@Autowired ContactControllerImplTest(MockMvc mockMvc, ObjectMapper objectMapper, ContactRepository contactRepository) {
+	@Autowired ContactControllerImplTest(MockMvc mockMvc, ObjectMapper objectMapper, ContactRepository contactRepository)
+	{
 		this.mockMvc = mockMvc;
 		this.objectMapper = objectMapper;
 		this.contactRepository = contactRepository;
 	}
 
-	@Test
-	void findAllContacts() throws Exception {
+	@Test void findAllContacts() throws Exception
+	{
 		mockMvc.perform(get("/api/v1/contacts").param("page", "0").param("size", "5"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType("application/hal+json"))
@@ -61,8 +63,8 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 				.andExpect(jsonPath("$.page.number", is(0)));
 	}
 
-	@Test
-	void findContactById() throws Exception {
+	@Test void findContactById() throws Exception
+	{
 		mockMvc.perform(get("/api/v1/contacts/{id}", "e8fd1a04-1c85-45e0-8f35-8ee8520e1800"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType("application/hal+json"))
@@ -96,8 +98,8 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 				.andExpect(jsonPath("$.statusCode", is(400)));
 	}
 
-	@Test
-	void saveContact() throws Exception {
+	@Test void saveContact() throws Exception
+	{
 		final ContactDto contact = new ContactDto();
 		contact.setFirstName("Samuel");
 		contact.setLastName("Dantas");
@@ -126,8 +128,8 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 		contactRepository.deleteById(UUID.fromString(id));
 	}
 
-	@Test
-	void updateContact() throws Exception {
+	@Test void updateContact() throws Exception
+	{
 		final UUID id = UUID.fromString("e8fd1a04-1c85-45e0-8f35-8ee8520e1801");
 		Name name = new Name("Rebecca", "", "Souza", "", "", "", "");
 		Contact contact = contactRepository.findById(id).orElseThrow(NoResultException::new);
@@ -179,8 +181,8 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 				.andExpect(jsonPath("$.statusCode", is(400)));
 	}
 
-	@Test
-	void deleteContact() throws Exception {
+	@Test void deleteContact() throws Exception
+	{
 		final ContactDto contact = new ContactDto();
 		contact.setFirstName("Samuel");
 		contact.setLastName("Dantas");
@@ -215,8 +217,8 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 				.andExpect(jsonPath("$.statusCode", is(400)));
 	}
 
-	@Test
-	void findContactsByNameContainingIgnoreCase() throws Exception {
+	@Test void findContactsByNameContainingIgnoreCase() throws Exception
+	{
 		mockMvc.perform(get("/api/v1/contacts/name-search")
 						.param("search", "peR")
 						.param("page", "0")
@@ -234,8 +236,8 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 				.andExpect(jsonPath("$.page.number", is(0)));
 	}
 
-	@Test
-	void findContactsByWebsiteContainsIgnoreCase() throws Exception {
+	@Test void findContactsByWebsiteContainsIgnoreCase() throws Exception
+	{
 		mockMvc.perform(get("/api/v1/contacts/website-search")
 						.param("search", "dev4")
 						.param("page", "0")
@@ -253,8 +255,8 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 				.andExpect(jsonPath("$.page.number", is(0)));
 	}
 
-	@Test
-	void findContactsByNoteContainsIgnoreCase() throws Exception {
+	@Test void findContactsByNoteContainsIgnoreCase() throws Exception
+	{
 		mockMvc.perform(get("/api/v1/contacts/note-search")
 						.param("search", "sEmp")
 						.param("page", "0")
@@ -273,8 +275,8 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 				.andExpect(jsonPath("$.page.number", is(0)));
 	}
 
-	@Test
-	void findContactsByTelephone() throws Exception {
+	@Test void findContactsByTelephone() throws Exception
+	{
 		mockMvc.perform(get("/api/v1/contacts/telephone-search")
 						.param("search", "9833")
 						.param("page", "0")
@@ -293,8 +295,8 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 				.andExpect(jsonPath("$.page.number", is(0)));
 	}
 
-	@Test
-	void findContactsByAddress() throws Exception {
+	@Test void findContactsByAddress() throws Exception
+	{
 		mockMvc.perform(get("/api/v1/contacts/address-search")
 						.param("search", "sEnnA")
 						.param("page", "0")
@@ -313,8 +315,8 @@ class ContactControllerImplTest extends TestContainersConfiguration {
 				.andExpect(jsonPath("$.page.number", is(0)));
 	}
 
-	@Test
-	void findContactsByEmailContainsIgnoreCase() throws Exception {
+	@Test void findContactsByEmailContainsIgnoreCase() throws Exception
+	{
 		mockMvc.perform(get("/api/v1/contacts/email-search")
 						.param("search", "tH")
 						.param("page", "0")

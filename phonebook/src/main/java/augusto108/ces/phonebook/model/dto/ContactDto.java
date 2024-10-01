@@ -12,7 +12,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ContactDto extends BaseUUID {
+public class ContactDto extends BaseUUID
+{
 
 	private String firstName;
 	private String middleName;
@@ -34,131 +35,163 @@ public class ContactDto extends BaseUUID {
 	private final Set<Email> emails = new HashSet<>();
 	private final Set<InstantMessenger> messengers = new HashSet<>();
 
-	public String getFirstName() {
+	public String getFirstName()
+	{
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(String firstName)
+	{
 		this.firstName = firstName;
 	}
 
-	public String getMiddleName() {
+	public String getMiddleName()
+	{
 		return middleName;
 	}
 
-	public void setMiddleName(String middleName) {
+	public void setMiddleName(String middleName)
+	{
 		this.middleName = middleName;
 	}
 
-	public String getLastName() {
+	public String getLastName()
+	{
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(String lastName)
+	{
 		this.lastName = lastName;
 	}
 
-	public String getNickname() {
+	public String getNickname()
+	{
 		return nickname;
 	}
 
-	public void setNickname(String nickname) {
+	public void setNickname(String nickname)
+	{
 		this.nickname = nickname;
 	}
 
-	public String getPhoneticFirstName() {
+	public String getPhoneticFirstName()
+	{
 		return phoneticFirstName;
 	}
 
-	public void setPhoneticFirstName(String phoneticFirstName) {
+	public void setPhoneticFirstName(String phoneticFirstName)
+	{
 		this.phoneticFirstName = phoneticFirstName;
 	}
 
-	public String getPhoneticMiddleName() {
+	public String getPhoneticMiddleName()
+	{
 		return phoneticMiddleName;
 	}
 
-	public void setPhoneticMiddleName(String phoneticMiddleName) {
+	public void setPhoneticMiddleName(String phoneticMiddleName)
+	{
 		this.phoneticMiddleName = phoneticMiddleName;
 	}
 
-	public String getPhoneticLastName() {
+	public String getPhoneticLastName()
+	{
 		return phoneticLastName;
 	}
 
-	public void setPhoneticLastName(String phoneticLastName) {
+	public void setPhoneticLastName(String phoneticLastName)
+	{
 		this.phoneticLastName = phoneticLastName;
 	}
 
-	public Relationship getRelationship() {
+	public Relationship getRelationship()
+	{
 		return relationship;
 	}
 
-	public void setRelationship(Relationship relationship) {
+	public void setRelationship(Relationship relationship)
+	{
 		this.relationship = relationship;
 	}
 
-	public String getCompany() {
+	public String getCompany()
+	{
 		return company;
 	}
 
-	public void setCompany(String company) {
+	public void setCompany(String company)
+	{
 		this.company = company;
 	}
 
-	public String getTitle() {
+	public String getTitle()
+	{
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(String title)
+	{
 		this.title = title;
 	}
 
-	public String getWebsite() {
+	public String getWebsite()
+	{
 		return website;
 	}
 
-	public void setWebsite(String website) {
+	public void setWebsite(String website)
+	{
 		this.website = website;
 	}
 
-	public Date getDate() {
+	public Date getDate()
+	{
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Date date)
+	{
 		this.date = date;
 	}
 
-	public DateType getDateType() {
+	public DateType getDateType()
+	{
 		return dateType;
 	}
 
-	public void setDateType(DateType dateType) {
+	public void setDateType(DateType dateType)
+	{
 		this.dateType = dateType;
 	}
 
-	public String getNote() {
+	public String getNote()
+	{
 		return note;
 	}
 
-	public void setNote(String note) {
+	public void setNote(String note)
+	{
 		this.note = note;
 	}
 
-	public Set<Telephone> getTelephones() {
+	public Set<Telephone> getTelephones()
+	{
 		return telephones;
 	}
 
-	public Set<Address> getAddresses() {
+	public Set<Address> getAddresses()
+	{
 		return addresses;
 	}
 
-	public Set<Email> getEmails() {
+	public Set<Email> getEmails()
+	{
 		return emails;
 	}
 
-	public Set<InstantMessenger> getMessengers() {
+	public Set<InstantMessenger> getMessengers()
+	{
 		return messengers;
 	}
 }

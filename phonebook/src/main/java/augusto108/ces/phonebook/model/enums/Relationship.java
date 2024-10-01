@@ -1,6 +1,7 @@
 package augusto108.ces.phonebook.model.enums;
 
-public enum Relationship {
+public enum Relationship
+{
 
 	ASSISTANT, BROTHER, CHILD, DOMESTIC_PARTNER, FATHER, FRIEND, MANAGER, MOTHER, OTHER, PARENT, PARTNER, REFERRED_BY, RELATIVE, SISTER, SPOUSE
 }
