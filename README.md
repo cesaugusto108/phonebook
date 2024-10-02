@@ -80,7 +80,7 @@ Once the application is running, you can access the full API documentation via S
 César Augusto Silva  
 cesaraugustosilva@proton.me
 
-Example usage:
+## Example usage:
 ```
 $ curl http://localhost:8880/phonebook/api/v1/contacts/e8fd1a04-1c85-45e0-8f35-8ee8520e1801 | json_pp
 {
