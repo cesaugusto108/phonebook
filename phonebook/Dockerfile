@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17.0.9_9-jre
 VOLUME /tmp
-ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=build/libs/*SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
 ENV SERVERPORT=server_port
 ENV HOST=host
