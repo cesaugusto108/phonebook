@@ -27,20 +27,19 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 @DisplayNameGeneration(DisplayNameGenerator.Simple.class)
-class ContactServiceImplTest extends TestContainersConfiguration
-{
+class ContactServiceImplTest extends TestContainersConfiguration {
 
 	private final ContactService contactService;
 	private final ContactRepository contactRepository;
 
-	@Autowired ContactServiceImplTest(ContactService contactService, ContactRepository contactRepository)
-	{
+	@Autowired
+	ContactServiceImplTest(ContactService contactService, ContactRepository contactRepository) {
 		this.contactService = contactService;
 		this.contactRepository = contactRepository;
 	}
 
-	@Test void findAllContacts()
-	{
+	@Test
+	void findAllContacts() {
 		final Page<ContactDto> contacts = contactService.findAllContacts(0, 10);
 		final ContactDto contact = contacts.stream().toList().get(0);
 		assertEquals(13, contacts.getTotalElements());
@@ -55,8 +54,8 @@ class ContactServiceImplTest extends TestContainersConfiguration
 		assertNull(contact.getPhoneticLastName());
 	}
 
-	@Test void findContactById()
-	{
+	@Test
+	void findContactById() {
 		final ContactDto contact = contactService.findContactById("e8fd1a04-1c85-45e0-8f35-8ee8520e1800");
 		assertEquals("ASSISTANT", contact.getRelationship().toString());
 		assertNull(contact.getCompany());
@@ -70,8 +69,8 @@ class ContactServiceImplTest extends TestContainersConfiguration
 		assertThrows(NumberFormatException.class, () -> contactService.findContactById("e8fd1a04-1c85-45e0-8f35-8ee8520e180z"));
 	}
 
-	@Test void saveContact()
-	{
+	@Test
+	void saveContact() {
 		final ContactDto dto = new ContactDto();
 		dto.setFirstName("Joaquim");
 
@@ -101,8 +100,8 @@ class ContactServiceImplTest extends TestContainersConfiguration
 		contactRepository.deleteById(contact.getId());
 	}
 
-	@Test void updateContact()
-	{
+	@Test
+	void updateContact() {
 		Contact contact = contactRepository
 				.findById(UUID.fromString("e8fd1a04-1c85-45e0-8f35-8ee8520e1800"))
 				.orElseThrow(NoResultException::new);
@@ -136,8 +135,8 @@ class ContactServiceImplTest extends TestContainersConfiguration
 		assertEquals(13, contacts.size()); // checks number of objs stays the same
 	}
 
-	@Test void deleteContact()
-	{
+	@Test
+	void deleteContact() {
 		final Name name = new Name("Marina", "", "", "", "", "", "");
 		Contact contact = new Contact();
 		contact.setName(name);
@@ -153,8 +152,8 @@ class ContactServiceImplTest extends TestContainersConfiguration
 		assertThrows(NumberFormatException.class, () -> contactService.findContactById("e8fd1a04-1c85-45e0-8f35-8ee8520e180z"));
 	}
 
-	@Test void findContactsByNameContainingIgnoreCase()
-	{
+	@Test
+	void findContactsByNameContainingIgnoreCase() {
 		final Page<ContactDto> contacts = contactService.findContactsByNameContainsIgnoreCase("peR", 0, 10);
 		final ContactDto alberto = contacts.stream().toList().get(0);
 		final ContactDto robson = contacts.stream().toList().get(1);
@@ -170,8 +169,8 @@ class ContactServiceImplTest extends TestContainersConfiguration
 		assertEquals("Pereira", robson.getLastName());
 	}
 
-	@Test void findContactsByWebsiteContainsIgnoreCase()
-	{
+	@Test
+	void findContactsByWebsiteContainsIgnoreCase() {
 		final Page<ContactDto> contacts = contactService.findContactsByWebsiteContainsIgnoreCase("dev4", 0, 10);
 		final ContactDto charles = contacts.stream().toList().get(0);
 		assertEquals(1, contacts.getTotalElements());
@@ -182,8 +181,8 @@ class ContactServiceImplTest extends TestContainersConfiguration
 		assertEquals("Smith", charles.getLastName());
 	}
 
-	@Test void findContactsByNoteContainsIgnoreCase()
-	{
+	@Test
+	void findContactsByNoteContainsIgnoreCase() {
 		final Page<ContactDto> contacts = contactService.findContactsByNoteContainsIgnoreCase("sEmp", 0, 10);
 		final ContactDto angela = contacts.stream().toList().get(0);
 		assertEquals(1, contacts.getTotalElements());
@@ -194,8 +193,8 @@ class ContactServiceImplTest extends TestContainersConfiguration
 		assertEquals("Silva", angela.getLastName());
 	}
 
-	@Test void findContactsByTelephone()
-	{
+	@Test
+	void findContactsByTelephone() {
 		final Page<ContactDto> contacts = contactService.findContactsByTelephoneContains("9833", 0, 10);
 		final ContactDto josefa = contacts.stream().toList().get(0);
 		assertEquals(1, contacts.getTotalElements());
@@ -206,8 +205,8 @@ class ContactServiceImplTest extends TestContainersConfiguration
 		assertEquals("Pires", josefa.getLastName());
 	}
 
-	@Test void findContactsByAddress()
-	{
+	@Test
+	void findContactsByAddress() {
 		final Page<ContactDto> contacts = contactService.findContactsByAddressContainsIgnoreCase("sEnnA", 0, 10);
 		final ContactDto alberto = contacts.stream().toList().get(0);
 		assertEquals(1, contacts.getTotalElements());
@@ -218,8 +217,8 @@ class ContactServiceImplTest extends TestContainersConfiguration
 		assertEquals("Pereira", alberto.getLastName());
 	}
 
-	@Test void findContactsByEmailsContainsIgnoreCase()
-	{
+	@Test
+	void findContactsByEmailsContainsIgnoreCase() {
 		final Page<ContactDto> contacts = contactService.findContactsByEmailContainsIgnoreCase("tH", 0, 10);
 		final ContactDto ana = contacts.stream().toList().get(0);
 		assertEquals(4, contacts.getTotalElements());

@@ -1,7 +1,6 @@
 package augusto108.ces.phonebook.model.enums;
 
-public enum DateType
-{
+public enum DateType {
 
 	ANNIVERSARY, BIRTHDAY, OTHER
 }

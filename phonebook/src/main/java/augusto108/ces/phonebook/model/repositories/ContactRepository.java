@@ -13,8 +13,7 @@ import java.util.UUID;
 
 @Transactional(readOnly = true)
 @Repository
-public interface ContactRepository extends JpaRepository<Contact, UUID>
-{
+public interface ContactRepository extends JpaRepository<Contact, UUID> {
 
 	@Query("from Contact c where " +
 			"c.name.firstName like concat('%', :text, '%') or " +
